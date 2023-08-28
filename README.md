@@ -1,0 +1,2 @@
+# poc-django
+django poc 
