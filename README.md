@@ -15,6 +15,32 @@ python3 manage.py runserver
 
 `python3 manage.py createsuperuser`
 
+## How to use shell plus
+
+```
+pip install ipython==7.3.0
+pip install ipython-genutils==0.2.0
+pip install django-extensions==2.1.7
+pip install jedi==0.17
+
+```
+
+in settins:
+
+```
+INSTALLED_APPS = [
+    ...
+    'django_extensions',
+]
+
+```
+
+python3 manage.py shell_plus --ipython
+
+data=Employee.objects.all()
+
+for employee in data: print(employee.ename)
+
 
 
 ## Troubleshoot
