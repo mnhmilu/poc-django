@@ -1,8 +1,12 @@
 # poc-django
 
-django poc 
 
-https://www.javatpoint.com/django-crud-application
+
+## After change
+
+python3 manage.py makemigrations 
+
+python3 manage.py migrate 
 
 
 python3 manage.py runserver
@@ -27,4 +31,8 @@ STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')
 
 ```
 
+
+## Reference  
+
+https://www.javatpoint.com/django-crud-application
 
