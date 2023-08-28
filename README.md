@@ -56,6 +56,7 @@ VENV_PATH = os.path.dirname(BASE_DIR)
 STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')
 
 ```
+https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
 ## Reference  
