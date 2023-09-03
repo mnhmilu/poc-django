@@ -47,7 +47,9 @@ INSTALLED_APPS = [
 
 ## Troubleshoot
 
-in settings 
+### Static file problem
+
+in settings use 
 
 ```
 import os
