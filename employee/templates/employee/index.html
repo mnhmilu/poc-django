@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
+
     <div class="container mt-5">
-        <form method="POST" class="post-form" action="/emp">
+        <form method="POST" class="post-form" action="/employee/emp">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-4 offset-md-4">
@@ -47,7 +42,5 @@
         </form>
     </div>
 
-    <!-- Include Bootstrap JS (optional) -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+
+    {% endblock %}

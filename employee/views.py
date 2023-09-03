@@ -13,7 +13,7 @@ def emp(request):
         if form.is_valid():  
             try:  
                 form.save()  
-                return redirect('employee/show')  
+                return redirect('/employee/show')  
             except:  
                 pass  
     else:  
