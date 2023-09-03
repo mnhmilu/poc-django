@@ -20,10 +20,10 @@
       <td>{{ employee.eemail }}</td>
       <td>{{ employee.econtact }}</td>
       <td>
-        <a href="/edit/{{ employee.id }}"
+        <a href="/employee/edit/{{ employee.id }}"
           ><span class="glyphicon glyphicon-pencil">Edit</span></a
         >
-        <a href="/delete/{{ employee.id }}">Delete</a>
+        <a href="/employee/delete/{{ employee.id }}">Delete</a>
       </td>
     </tr>
     {% endfor %}

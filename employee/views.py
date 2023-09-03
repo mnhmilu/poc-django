@@ -30,9 +30,9 @@ def update(request, id):
     form = EmployeeForm(request.POST, instance = employee)  
     if form.is_valid():  
         form.save()  
-        return redirect("employee/show")  
+        return redirect("/employee/show")  
     return render(request, 'employee/edit.html', {'employee': employee})  
 def destroy(request, id):  
     employee = Employee.objects.get(id=id)  
     employee.delete()  
-    return redirect("employee/show")  
+    return redirect("/employee/show")  
