@@ -43,6 +43,19 @@ INSTALLED_APPS = [
 
 `for employee in data: print(employee.ename)`
 
+### Filter
+
+emplist = Employee.objects.filter(eid='12')
+for employee in emplist:    print(employee.ename)
+
+### Get
+in model
+eid = models.CharField(max_length=20, unique=True)
+
+command
+
+employees_with_eid_12 = Employee.objects.get(eid='12')
+print(employees_with_eid_12.ename)
 
 
 ## Troubleshoot
