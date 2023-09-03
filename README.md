@@ -4,18 +4,17 @@
 
 ## After change
 
-python3 manage.py makemigrations 
+`python3 manage.py makemigrations`
 
-python3 manage.py migrate 
+`python3 manage.py migrate`
 
-
-python3 manage.py runserver
+`python3 manage.py runserver`
 
 ## Create new super user in admin
 
 `python3 manage.py createsuperuser`
 
-## How to use shell plus
+## How to Install shell plus
 
 ```
 pip install ipython==7.3.0
@@ -35,11 +34,14 @@ INSTALLED_APPS = [
 
 ```
 
-python3 manage.py shell_plus --ipython
+### How to use Shell Plus
 
-data=Employee.objects.all()
 
-for employee in data: print(employee.ename)
+`python3 manage.py shell_plus --ipython`
+
+`data=Employee.objects.all()`
+
+`for employee in data: print(employee.ename)`
 
 
 
@@ -60,6 +62,8 @@ https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
 ## Reference  
+
+[Getting Started](https://www.djangoproject.com/start/)
 
 https://www.javatpoint.com/django-crud-application
 
