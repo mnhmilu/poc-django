@@ -67,5 +67,7 @@ https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 [Getting Started](https://www.djangoproject.com/start/)
 
+[How to guide](https://docs.djangoproject.com/en/4.2/howto/)
+
 https://www.javatpoint.com/django-crud-application
 
