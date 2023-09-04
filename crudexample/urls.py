@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin  
 from django.urls import path  
 from employee import views  
+from django.urls import path, include
+from django.views.generic.base import TemplateView # new
+
 urlpatterns = [  
     path('admin/', admin.site.urls),  
     path('dashboard/',views.home),
@@ -27,4 +30,6 @@ urlpatterns = [
     path('employee/update/<int:id>', views.update),  
     path('employee/delete/<int:id>', views.destroy),  
     path('employee/show', views.employee_lookup, name='employee_lookup'),
+    path("accounts/", include("django.contrib.auth.urls")),  # new
+    path('', TemplateView.as_view(template_name='dashboard.html'), name='dashboard')
 ]  

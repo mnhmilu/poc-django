@@ -4,6 +4,7 @@ from employee.models import Employee
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 import csv
 from django.http import HttpResponse
 # Create your views here.  
@@ -11,7 +12,7 @@ from django.http import HttpResponse
 def home(request):
     return render(request,"dashboard.html");
 
-
+@login_required
 def emp(request):  
     if request.method == "POST":  
         form = EmployeeForm(request.POST)  
@@ -24,12 +25,18 @@ def emp(request):
     else:  
         form = EmployeeForm()  
     return render(request,'employee/index.html',{'form':form})  
+
+@login_required
 def show(request):  
     employees = Employee.objects.all()  
     return render(request,"employee/show.html",{'employees':employees})  
+
+@login_required
 def edit(request, id):  
     employee = Employee.objects.get(id=id)  
     return render(request,'employee/edit.html', {'employee':employee})  
+
+@login_required
 def update(request, id):  
     employee = Employee.objects.get(id=id)  
     form = EmployeeForm(request.POST, instance = employee)  
@@ -37,11 +44,13 @@ def update(request, id):
         form.save()  
         return redirect("/employee/show")  
     return render(request, 'employee/edit.html', {'employee': employee})  
+
+@login_required
 def destroy(request, id):  
     employee = Employee.objects.get(id=id)  
     employee.delete()  
     return redirect("/employee/show")  
-
+@login_required
 def export(request):
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(
@@ -63,6 +72,7 @@ def export(request):
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 
+@login_required
 def export_pdf(request):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="mydata.pdf"'
@@ -103,7 +113,7 @@ def export_pdf(request):
 
     return response
 
-
+@login_required
 def employee_lookup(request):
     ename_query = request.GET.get('ename', '')
 
