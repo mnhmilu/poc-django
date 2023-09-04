@@ -101,3 +101,13 @@ def export_pdf(request):
     p.save()
 
     return response
+
+
+def employee_lookup(request):
+    if 'ename' in request.GET:
+        ename = request.GET['ename']
+        employees = Employee.objects.filter(ename__icontains=ename)
+    else:
+        employees = Employee.objects.all()
+
+    return render(request, 'employee/employee_lookup.html', {'employees': employees})
