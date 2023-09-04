@@ -3,6 +3,7 @@ from employee.forms import EmployeeForm
 from employee.models import Employee  
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
+from django.core.paginator import Paginator
 import csv
 from django.http import HttpResponse
 # Create your views here.  
@@ -104,10 +105,12 @@ def export_pdf(request):
 
 
 def employee_lookup(request):
-    if 'ename' in request.GET:
-        ename = request.GET['ename']
-        employees = Employee.objects.filter(ename__icontains=ename)
-    else:
-        employees = Employee.objects.all()
+    ename_query = request.GET.get('ename', '')
 
+    # Assuming you want to display 10 employees per page
+    employees = Employee.objects.filter(ename__icontains=ename_query)
+    paginator = Paginator(employees, 3)  # 10 employees per page
+
+    page_number = request.GET.get('page')
+    employees = paginator.get_page(page_number)
     return render(request, 'employee/show.html', {'employees': employees})
