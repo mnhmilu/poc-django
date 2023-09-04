@@ -110,4 +110,4 @@ def employee_lookup(request):
     else:
         employees = Employee.objects.all()
 
-    return render(request, 'employee/employee_lookup.html', {'employees': employees})
+    return render(request, 'employee/show.html', {'employees': employees})
