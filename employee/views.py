@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect  
 from employee.forms import EmployeeForm  
 from employee.models import Employee  
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
 import csv
 from django.http import HttpResponse
 # Create your views here.  
@@ -47,6 +49,7 @@ def export(request):
     )
 
     emplist = Employee.objects.all();
+    
 
     writer = csv.writer(response)
 
@@ -54,4 +57,47 @@ def export(request):
     for employee in emplist: 
        writer.writerow([employee.eid, employee.ename]);
    
+    return response
+
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+
+def export_pdf(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="mydata.pdf"'
+
+    # Create the PDF object, using the response object as its "file."
+    p = canvas.Canvas(response)
+
+    # Define the width and height of each row in the table
+    row_height = 20
+    column_width = 150
+
+    # Define the data to be printed in the table
+    data = [
+        ['ID', 'Name', 'Email'],
+    ]
+    for obj in Employee.objects.all():
+        data.append([obj.eid, obj.ename, obj.eemail])
+
+    # Define border settings
+    border_color = (0, 0, 0)  # Black
+    border_width = 1
+
+    # Draw the table with borders
+    x = 50
+    y = 750
+    for row in data:
+        for item in row:
+            # Draw the cell border
+            p.rect(x, y, column_width, -row_height, stroke=1, fill=0)
+            p.drawString(x + 2, y - 12, str(item))  # Add 2 to x for padding
+            x += column_width
+        x = 50
+        y -= row_height
+
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+
     return response
