@@ -1,6 +1,6 @@
 body {
   font: 12px/1.4 Verdana, Arial;
-  background: #348ceb;
+  background: #32a852;
   height: 100%;
   margin: 25px 0;
   padding: 0;
@@ -52,6 +52,8 @@ ul {
 #tinycontent {
   background: #fff;
 }
+
+
 
 .button {
   font: 14px Georgia, Verdana;

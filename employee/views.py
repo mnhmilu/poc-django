@@ -124,7 +124,7 @@ def employee_lookup(request):
 
     # Assuming you want to display 10 employees per page
     employees = Employee.objects.filter(ename__icontains=ename_query)
-    paginator = Paginator(employees, 3)  # 10 employees per page
+    paginator = Paginator(employees, 5)  # 10 employees per page
 
     page_number = request.GET.get('page')
     employees = paginator.get_page(page_number)

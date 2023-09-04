@@ -3,10 +3,14 @@
 {% block content %}
 </br>
 
-<form method="get">
-  <input type="text" name="ename" placeholder="Enter Employee Name" value="{{ request.GET.ename }}">
-  <button type="submit">Search</button>
-</form>
+<div >
+
+  <form class="form-inline" method="get">
+    <div class="form-group">
+      <input type="text" class="form-control" name="ename" placeholder="Enter Employee Name" value="{{ request.GET.ename }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
 
 </br>
 
@@ -39,22 +43,37 @@
 </table>
 <br />
 <div class="pagination">
-  <span class="step-links">
-      {% if employees.has_previous %}
-          <a href="?page=1">&laquo; first</a>
-          <a href="?page={{ employees.previous_page_number }}">previous</a>
-      {% endif %}
-      
-      <span class="current-page">
-          Page {{ employees.number }} of {{ employees.paginator.num_pages }}.
+  <ul class="pagination justify-content-center">
+    {% if employees.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1" aria-label="First">
+          <span aria-hidden="true">&laquo; first</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ employees.previous_page_number }}">previous</a>
+      </li>
+    {% endif %}
+
+    <li class="page-item disabled">
+      <span class="page-link">
+        Page {{ employees.number }} of {{ employees.paginator.num_pages }}.
       </span>
-      
-      {% if employees.has_next %}
-          <a href="?page={{ employees.next_page_number }}">next</a>
-          <a href="?page={{ employees.paginator.num_pages }}">last &raquo;</a>
-      {% endif %}
-  </span>
+    </li>
+
+    {% if employees.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ employees.next_page_number }}">next</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ employees.paginator.num_pages }}" aria-label="Last">
+          <span aria-hidden="true">last &raquo;</span>
+        </a>
+      </li>
+    {% endif %}
+  </ul>
 </div>
+
 
 <br />
 
@@ -65,5 +84,5 @@
   <a href="/employee/export" class="btn btn-primary" style="margin-right: 10px;">Export CSV</a>
   <a href="/employee/exportpdf" class="btn btn-primary">Export PDF</a>
 </div>
-
+</div>
 {% endblock %}

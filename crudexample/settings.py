@@ -19,15 +19,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #STATIC_URL = '/static/'
 #STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 VENV_PATH = os.path.dirname(BASE_DIR)
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'employee/static'),
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')
 #STATIC_URL = "static/"
-# Quick-start development settings - unsuitable for production
+# Quick-start development settings - unsuitable for productionddd
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
