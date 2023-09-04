@@ -129,3 +129,8 @@ def employee_lookup(request):
     page_number = request.GET.get('page')
     employees = paginator.get_page(page_number)
     return render(request, 'employee/show.html', {'employees': employees})
+
+
+@login_required
+def reload_view(request):
+  return redirect('/employee/show')

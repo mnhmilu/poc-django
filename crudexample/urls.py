@@ -29,6 +29,7 @@ urlpatterns = [
     path('employee/edit/<int:id>', views.edit),  
     path('employee/update/<int:id>', views.update),  
     path('employee/delete/<int:id>', views.destroy),  
+    path('employee/reload/', views.reload_view, name='reload'),
     path('employee/show', views.employee_lookup, name='employee_lookup'),
     path("accounts/", include("django.contrib.auth.urls")),  # new
     path('', TemplateView.as_view(template_name='dashboard.html'), name='dashboard')
