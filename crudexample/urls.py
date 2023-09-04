@@ -21,11 +21,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),  
     path('dashboard/',views.home),
     path('employee/emp', views.emp),  
-    path('employee/show',views.show),  
     path('employee/export',views.export),    
     path('employee/exportpdf',views.export_pdf),    
     path('employee/edit/<int:id>', views.edit),  
     path('employee/update/<int:id>', views.update),  
     path('employee/delete/<int:id>', views.destroy),  
-    path('employee/lookup', views.employee_lookup, name='employee_lookup'),
+    path('employee/show', views.employee_lookup, name='employee_lookup'),
 ]  
