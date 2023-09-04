@@ -78,6 +78,8 @@ https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 ## Reference  
 
+[Authentication-How to ](https://learndjango.com/tutorials/django-login-and-logout-tutorial)
+
 [Getting Started](https://www.djangoproject.com/start/)
 
 [How to guide](https://docs.djangoproject.com/en/4.2/howto/)
