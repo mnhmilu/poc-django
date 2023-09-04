@@ -6,8 +6,11 @@ from reportlab.pdfgen import canvas
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 import csv
+import logging
 from django.http import HttpResponse
 # Create your views here.  
+
+logger = logging.getLogger(__name__)
 
 def home(request):
     return render(request,"dashboard.html");
@@ -116,6 +119,8 @@ def export_pdf(request):
 @login_required
 def employee_lookup(request):
     ename_query = request.GET.get('ename', '')
+
+    logger.warning("-------------> Employee lookup called")
 
     # Assuming you want to display 10 employees per page
     employees = Employee.objects.filter(ename__icontains=ename_query)
