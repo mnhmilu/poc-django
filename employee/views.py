@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect  
 from employee.forms import EmployeeForm  
 from employee.models import Employee  
+import csv
+from django.http import HttpResponse
 # Create your views here.  
 
 def home(request):
@@ -36,3 +38,20 @@ def destroy(request, id):
     employee = Employee.objects.get(id=id)  
     employee.delete()  
     return redirect("/employee/show")  
+
+def export(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="somefilename.csv"'},
+    )
+
+    emplist = Employee.objects.all();
+
+    writer = csv.writer(response)
+
+    writer.writerow(["ID", "Name"])
+    for employee in emplist: 
+       writer.writerow([employee.eid, employee.ename]);
+   
+    return response
