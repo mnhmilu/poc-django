@@ -77,7 +77,7 @@ def export_pdf(request):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="mydata.pdf"'
 
-    # Create the PDF object, using the response object as its "file."fff
+    # Create the PDF object, using the response object as its "file."fffhhh
     p = canvas.Canvas(response)
 
     # Define the width and height of each row in the table
