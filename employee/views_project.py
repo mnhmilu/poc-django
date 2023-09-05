@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from employee.forms import ProjectForm  
 from employee.models import Project  
 from django.http import HttpResponse
+from django.contrib import messages
 from reportlab.pdfgen import canvas
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -121,7 +122,7 @@ def project_lookup(request):
     projectname_query = request.GET.get('project_name', '')
 
     logger.warning("-------------> project lookup called")
-
+    messages.success(request, "Profile Look up !")
     # Assuming you want to display 10 projects per page
     projects = Project.objects.filter(project_name__icontains=projectname_query)
     paginator = Paginator(projects, 5)  # 10 projects per page

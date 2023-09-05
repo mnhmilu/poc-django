@@ -62,6 +62,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+
 ROOT_URLCONF = 'crudexample.urls'
 
 TEMPLATES = [
@@ -139,3 +141,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/accounts/login"
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

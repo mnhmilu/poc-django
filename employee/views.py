@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 import csv
 import logging
 from django.http import HttpResponse
@@ -121,6 +122,8 @@ def employee_lookup(request):
     ename_query = request.GET.get('ename', '')
 
     logger.warning("-------------> Employee lookup called")
+
+    messages.success(request, "Profile Look up !")
 
     # Assuming you want to display 10 employees per page
     employees = Employee.objects.filter(ename__icontains=ename_query)
