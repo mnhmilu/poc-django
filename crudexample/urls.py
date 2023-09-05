@@ -29,6 +29,10 @@ urlpatterns = [
     path('project/proj', views_project.proj),  
     path('project/show', views_project.project_lookup, name='project_lookup'),
     path('project/reload/', views_project.reload_view, name='project_reload'),
+    path('project/edit/<int:id>', views_project.edit),  
+    path('project/update/<int:id>', views_project.update),  
+    path('project/delete/<int:id>', views_project.destroy),  
+
 
     path('employee/emp', views.emp),  
     path('employee/export',views.export),    
