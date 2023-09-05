@@ -18,6 +18,8 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def proj(request):  
+
+    logger.info("proj------------> called");
     if request.method == "POST":  
         form = ProjectForm(request.POST)  
         if form.is_valid():  

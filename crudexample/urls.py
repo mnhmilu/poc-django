@@ -25,8 +25,11 @@ urlpatterns = [
     
     path('admin/', admin.site.urls),  
     path('dashboard/',views.home),
+    
     path('project/proj', views_project.proj),  
     path('project/show', views_project.project_lookup, name='project_lookup'),
+    path('project/reload/', views_project.reload_view, name='project_reload'),
+
     path('employee/emp', views.emp),  
     path('employee/export',views.export),    
     path('employee/exportpdf',views.export_pdf),    
@@ -35,6 +38,7 @@ urlpatterns = [
     path('employee/delete/<int:id>', views.destroy),  
     path('employee/reload/', views.reload_view, name='reload'),
     path('employee/show', views.employee_lookup, name='employee_lookup'),
+    
     path("accounts/", include("django.contrib.auth.urls")),  # new
     path('', TemplateView.as_view(template_name='dashboard.html'), name='dashboard')
 ]  

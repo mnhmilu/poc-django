@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="container mt-5">
-        <form method="POST" class="post-form" action="/project/emp">
+        <form method="POST" class="post-form" action="/project/proj">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-4 offset-md-4">
@@ -17,23 +17,23 @@
                 </div>
             </div> -->
             <div class="form-group row">
-                <label for="id_ename" class="col-md-2 col-form-label">project Name:</label>
+                <label for="id_name" class="col-md-2 col-form-label">Project Name:</label>
                 <div class="col-md-4">
                     <input type="text" name="project_name" maxlength="100" required class="form-control" id="id_project_name">
                 </div>
             </div>
-            <!-- <div class="form-group row">
-                <label for="id_eemail" class="col-md-2 col-form-label">project Email:</label>
+             <div class="form-group row">
+                <label for="id_project_status" class="col-md-2 col-form-label">Project Status:</label>
                 <div class="col-md-4">
-                    <input type="email" name="eemail" maxlength="254" required class="form-control" id="id_eemail">
+                    <input type="text" name="project_status" maxlength="254" required class="form-control" id="id_project_status">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="id_econtact" class="col-md-2 col-form-label">project Contact:</label>
+                <label for="due_date" class="col-md-2 col-form-label">Project Duedate:</label>
                 <div class="col-md-4">
-                    <input type="text" name="econtact" maxlength="15" required class="form-control" id="id_econtact">
+                    <input type="date" name="due_date" maxlength="15" required class="form-control" id="id_due_date">
                 </div>
-            </div> -->
+            </div> 
             <div class="form-group row">
                 <div class="col-md-4 offset-md-2">
                     <button type="submit" class="btn btn-primary">Submit</button>

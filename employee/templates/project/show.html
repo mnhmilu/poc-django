@@ -14,10 +14,10 @@
             <input type="text" class="form-control" name="project_name" placeholder="Enter Project Name" value="{{ request.GET.project_name }}">
           </div>
           <button type="submit" class="btn btn-primary">Search</button>
-        </form>
+        </form> 
       </div>
       <div class="col-md-2">
-        <form class="form-inline" method="get" action="{% url 'reload' %}">
+        <form class="form-inline" method="get" action="{% url 'project_reload' %}">
           <button type="submit" class="btn btn-primary">Reload</button>
         </form>
       </div>
@@ -95,7 +95,7 @@
 
 
 <div style="text-align: center;">
-  <a href="/project/proj" class="btn btn-primary" style="margin-right: 10px;">Add New Record</a>
+  <a href="/project/proj" class="btn btn-primary" style="margin-right: 10px;">Add New Project</a>
   <a href="/project/export" class="btn btn-primary" style="margin-right: 10px;">Export CSV</a>
   <a href="/project/exportpdf" class="btn btn-primary">Export PDF</a>
 </div>
