@@ -10,6 +10,8 @@
 
 `python3 manage.py runserver`
 
+To reset db `python3 manage.py reset_db`
+
 ## Create new super user in admin
 
 `python3 manage.py createsuperuser`
@@ -59,6 +61,10 @@ print(employees_with_eid_12.ename)
 
 
 ## Troubleshoot
+
+### Table not added 
+
+> make sure model are added in `admin.py`
 
 ### Static file problem
 
