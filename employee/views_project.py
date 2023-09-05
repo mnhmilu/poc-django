@@ -124,7 +124,7 @@ def project_lookup(request):
     projectname_query = request.GET.get('project_name', '')
 
     logger.warning("-------------> project lookup called")
-    messages.success(request, "Profile Look up !")
+   
     # Assuming you want to display 10 projects per page
     projects = Project.objects.filter(project_name__icontains=projectname_query)
     paginator = Paginator(projects, 5)  # 10 projects per page
@@ -136,4 +136,5 @@ def project_lookup(request):
 
 @login_required
 def reload_view(request):
-  return redirect('/project/show')
+   messages.success(request, "reload called!");
+   return redirect('/project/show')

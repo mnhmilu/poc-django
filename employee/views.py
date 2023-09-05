@@ -123,8 +123,6 @@ def employee_lookup(request):
 
     logger.warning("-------------> Employee lookup called")
 
-    messages.success(request, "Profile Look up !")
-
     # Assuming you want to display 10 employees per page
     employees = Employee.objects.filter(ename__icontains=ename_query)
     paginator = Paginator(employees, 5)  # 10 employees per page
