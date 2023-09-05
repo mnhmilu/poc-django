@@ -17,12 +17,16 @@ Including another URLconf
 from django.contrib import admin  
 from django.urls import path  
 from employee import views  
+from employee import views_project
 from django.urls import path, include
 from django.views.generic.base import TemplateView # new
 
 urlpatterns = [  
+    
     path('admin/', admin.site.urls),  
     path('dashboard/',views.home),
+    path('project/proj', views_project.proj),  
+    path('project/show', views_project.project_lookup, name='project_lookup'),
     path('employee/emp', views.emp),  
     path('employee/export',views.export),    
     path('employee/exportpdf',views.export_pdf),    

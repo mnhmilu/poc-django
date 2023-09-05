@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <form method="POST" class="post-form" action="/project/emp">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <h3 class="text-center mb-4">Enter Details</h3>
+                </div>
+            </div>
+            <!-- <div class="form-group row">
+                <label for="id_eid" class="col-md-2 col-form-label">project Id:</label>
+                <div class="col-md-4">
+                    <input type="text" name="eid" maxlength="20" required class="form-control" id="id_eid">
+                </div>
+            </div> -->
+            <div class="form-group row">
+                <label for="id_ename" class="col-md-2 col-form-label">project Name:</label>
+                <div class="col-md-4">
+                    <input type="text" name="project_name" maxlength="100" required class="form-control" id="id_project_name">
+                </div>
+            </div>
+            <!-- <div class="form-group row">
+                <label for="id_eemail" class="col-md-2 col-form-label">project Email:</label>
+                <div class="col-md-4">
+                    <input type="email" name="eemail" maxlength="254" required class="form-control" id="id_eemail">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_econtact" class="col-md-2 col-form-label">project Contact:</label>
+                <div class="col-md-4">
+                    <input type="text" name="econtact" maxlength="15" required class="form-control" id="id_econtact">
+                </div>
+            </div> -->
+            <div class="form-group row">
+                <div class="col-md-4 offset-md-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    {% endblock %}
