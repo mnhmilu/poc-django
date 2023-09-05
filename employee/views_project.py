@@ -39,20 +39,25 @@ def show(request):
 
 @login_required
 def edit(request, id):  
-    logger.info("edit called------------->");
+    logger.warning("edit called------------->");
     project = Project.objects.get(project_id=id)  
     return render(request,'project/edit.html', {'project':project})  
 
 @login_required
 def update(request, id):  
-    logger.info("update called------------->");
+    
 
     project = Project.objects.get(project_id=id)  
   
     form = ProjectForm(request.POST, instance = project)  
+
+   # print("update called-------------> ",form.errors);
+
     if form.is_valid():  
         form.save()  
-        return redirect("/project/show")  
+        return redirect("/project/show")
+    else:
+        messages.error(request,form.errors)  
     return render(request, 'project/edit.html', {'project': project})  
 
 @login_required

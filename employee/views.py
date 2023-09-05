@@ -37,6 +37,7 @@ def show(request):
 
 @login_required
 def edit(request, id):  
+    logger.info("employee-->edit called------------->");
     employee = Employee.objects.get(id=id)  
     return render(request,'employee/edit.html', {'employee':employee})  
 

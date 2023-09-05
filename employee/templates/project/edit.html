@@ -1,4 +1,11 @@
 {% extends "base.html" %} {% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-success" >{{ message }}</div>
+    {% endfor %}
+</ul>
+{% endif %}
 
 <form method="POST" class="post-form" action="/project/update/{{project.project_id}}">
   {% csrf_token %}
