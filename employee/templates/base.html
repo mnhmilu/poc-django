@@ -72,11 +72,18 @@
         </div>
       </div>
     </nav>
-
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-success" >{{ message }}</div>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <div id="content" style="padding: 50px">
       {% block content %}
 
       {% endblock %}
+
     </div>
     <!-- Include Bootstrap JS (optional) -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
