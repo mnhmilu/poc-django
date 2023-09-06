@@ -28,6 +28,8 @@ def proj(request):
                 return redirect('/project/show')  
             except:  
                 pass  
+        else:            
+            messages.error(request,form.errors)  
     else:  
         form = ProjectForm()  
     return render(request,'project/index.html',{'form':form})  
@@ -62,7 +64,7 @@ def update(request, id):
 
 @login_required
 def destroy(request, id):  
-    project = Project.objects.get(id=id)  
+    project = Project.objects.get(project_id=id)  
     project.delete()  
     return redirect("/project/show")  
 @login_required

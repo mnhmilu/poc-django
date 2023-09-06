@@ -17,23 +17,73 @@
                 </div>
             </div> -->
             <div class="form-group row">
-                <label for="id_name" class="col-md-2 col-form-label">Project Name:</label>
+                <label for="id_name" class="col-md-2 col-form-label">Project Name(*)</label>
                 <div class="col-md-4">
                     <input type="text" name="project_name" maxlength="100" required class="form-control" id="id_project_name">
                 </div>
             </div>
              <div class="form-group row">
-                <label for="id_project_status" class="col-md-2 col-form-label">Project Status:</label>
+                <label for="id_project_status" class="col-md-2 col-form-label">Project Status(*)</label>
                 <div class="col-md-4">
                     <input type="text" name="project_status" maxlength="254" required class="form-control" id="id_project_status">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="due_date" class="col-md-2 col-form-label">Project Duedate:</label>
+                <label for="due_date" class="col-md-2 col-form-label">Duedate(*)</label>
                 <div class="col-md-4">
                     <input type="date" name="due_date" maxlength="15" required class="form-control" id="id_due_date">
                 </div>
             </div> 
+            <div class="form-group row">
+                <label for="due_date" class="col-md-2 col-form-label">Revised Duedate</label>
+                <div class="col-md-4">
+                    <input type="date" name="revised_due_date" maxlength="15" required class="form-control" id="id_revised_due_date">
+                </div>
+            </div> 
+
+            <div class="form-group row">
+                <label for="id_total_deviation" class="col-md-2 col-form-label">Total Deviation</label>
+                <div class="col-md-4">
+                    <input type="number" name="total_deviation_days" maxlength="254" required class="form-control" id="id_total_deviation">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_project_team_lead" class="col-md-2 col-form-label">Team Lead</label>
+                <div class="col-md-4">
+                    <input type="text" name="team_lead" maxlength="254" required class="form-control" id="id_project_team_lead">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_project_poc" class="col-md-2 col-form-label">POC</label>
+                <div class="col-md-4">
+                    <input type="text" name="project_poc" maxlength="254" required class="form-control" id="id_project_poc">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_notification_sms_recipient" class="col-md-2 col-form-label">Notification SMS</label>
+                <div class="col-md-4">
+                    <textarea name="notification_sms_recipient" maxlength="254" required class="form-control" id="id_notification_sms_recipient"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="id_notification_email_recipient" class="col-md-2 col-form-label">Notification Email</label>
+                <div class="col-md-4">
+                    <textarea name="notification_email_recipient" maxlength="254" required class="form-control" id="id_notification_email_recipient"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_block_status" class="col-md-2 col-form-label">Block Status</label>
+                <div class="col-md-4">
+                    <input type="checkbox" name="block_status" maxlength="254" required class="form-control" id="id_block_status">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_remarks" class="col-md-2 col-form-label">Remarks</label>
+                <div class="col-md-4">
+                    <textarea name="remarks" maxlength="254" required class="form-control" id="id_remarks"></textarea>
+                </div>
+            </div>
             <div class="form-group row">
                 <div class="col-md-4 offset-md-2">
                     <button type="submit" class="btn btn-primary">Submit</button>

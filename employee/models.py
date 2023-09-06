@@ -21,16 +21,16 @@ class Project(models.Model):
     due_date=models.DateField
     revised_due_dte=models.DateField
     total_deviation_days=models.IntegerField
-    team_lead=models.CharField(max_length=50)
-    project_poc=models.CharField(max_length=50)
-    notification_sms_recipient=models.CharField(max_length=100)
-    notification_email_recipient=models.CharField(max_length=100)
+    team_lead=models.CharField(max_length=50,blank=True)
+    project_poc=models.CharField(max_length=50,blank=True)
+    notification_sms_recipient=models.CharField(max_length=100, blank=True)
+    notification_email_recipient=models.CharField(max_length=100, blank=True)
     block_status=models.BooleanField(default=False)
-    inserted_by=models.CharField(max_length=250)
+    inserted_by=models.CharField(max_length=250,default="admin",blank=True)
     insert_date=models.DateTimeField(auto_now_add=True)
-    updated_by=models.CharField(max_length=250)
+    updated_by=models.CharField(max_length=250,default="admin",blank=True)
     update_date=models.DateTimeField(auto_now_add=True)    
-    remarks=models.CharField(max_length=250)
+    remarks=models.CharField(max_length=250,blank=True)
     class Meta:  
         managed = True
         db_table = "project"  
