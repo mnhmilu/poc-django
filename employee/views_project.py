@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 import csv
 import logging
 from django.http import HttpResponse
+from django.utils.dateformat import format
 # Create your views here.  
 
 logger = logging.getLogger(__name__)
@@ -43,6 +44,7 @@ def show(request):
 def edit(request, id):  
     logger.warning("edit called------------->");
     project = Project.objects.get(project_id=id)  
+   # messages.success(request,format(project.due_date,"D F Y"))
     return render(request,'project/edit.html', {'project':project})  
 
 @login_required
