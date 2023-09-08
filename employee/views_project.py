@@ -175,8 +175,8 @@ def reload_view(request):
    messages.success(request, "reload called!");
    return redirect('/project/show')
 
-def add_event_to_project(request, project_id):
-    project = get_object_or_404(Project, pk=project_id)
+def add_event_to_project(request,id):
+    project = get_object_or_404(Project, pk=id)
 
     if request.method == 'POST':
         event_form = EventForm(request.POST)
@@ -184,8 +184,7 @@ def add_event_to_project(request, project_id):
             event = event_form.save(commit=False)
             event.project = project
             event.save()
-            return redirect('/project/show')  # Replace 'project_list' with your actual URL name
-            #return redirect('/project/add_event', project_id=project.project_id );
+            return redirect('add_event_to_project', id );
     else:
     
     # Retrieve a list of events associated with the project as a QuerySet
