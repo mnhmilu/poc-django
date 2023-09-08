@@ -145,3 +145,5 @@ LOGOUT_REDIRECT_URL = "/accounts/login"
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
+DATE_FORMAT = "Y-m-d"
+USE_L10N = False

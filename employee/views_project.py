@@ -44,7 +44,13 @@ def show(request):
 def edit(request, id):  
     logger.warning("edit called------------->");
     project = Project.objects.get(project_id=id)  
-   # messages.success(request,format(project.due_date,"D F Y"))
+
+    if project.total_deviation_days is not None:
+        messages.success(request,"test"+ str(project.total_deviation_days))
+    else:
+        messages.success(request, "Total Deviation Days is empty")
+
+    #messages.success(request,str(project.total_deviation_days))
     return render(request,'project/edit.html', {'project':project})  
 
 @login_required

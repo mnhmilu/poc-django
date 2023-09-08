@@ -52,8 +52,8 @@
       <td>{{ project.project_id }}</td>
       <td>{{ project.project_name }}</td>
       <td>{{ project.project_status }}</td>
-      <td>{{ project.due_date}}</td>
-      <td>{{ project.revised_due_dte|date:"Y-m-d" }}</td>    
+      <td>{{ project.due_date | date:"M d, Y"}}</td>
+      <td>{{ project.revised_due_date}}</td>    
       <td>{{ project.total_deviation_days }}</td>
       <td>{{ project.team_lead }}</td>
       <td>{{ project.project_poc }}</td>

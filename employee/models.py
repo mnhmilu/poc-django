@@ -1,7 +1,7 @@
 
 # Create your models here.
 
-
+from django import forms
 from django.db import models  
 
 class Employee(models.Model):  
@@ -18,8 +18,8 @@ class Project(models.Model):
     project_id = models.AutoField(primary_key=True)
     project_name = models.CharField(max_length=100)  
     project_status = models.CharField(max_length=100)  
-    due_date=models.DateField
-    revised_due_dte=models.DateField
+    due_date=models.DateField()
+    revised_due_date=models.DateField()
     total_deviation_days=models.IntegerField
     team_lead=models.CharField(max_length=50,blank=True)
     project_poc=models.CharField(max_length=50,blank=True)
