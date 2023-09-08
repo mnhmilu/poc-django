@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect  
+from django.shortcuts import render, redirect  ,get_object_or_404
 from employee.forms import ProjectForm  
 from employee.models import Project  
 from django.http import HttpResponse
@@ -40,18 +40,35 @@ def show(request):
     projects = Project.objects.all()  
     return render(request,"project/show.html",{'projects':projects})  
 
+# @login_required
+# def edit(request, id):  
+#     logger.warning("edit called------------->");
+#     project = Project.objects.get(project_id=id)  
+
+#     if project.total_deviation_days is not None:
+#         messages.success(request,"test"+ str(project.total_deviation_days))
+#     else:
+#         messages.success(request, "Total Deviation Days is empty")
+
+#     #messages.success(request,str(project.total_deviation_days))
+#     return render(request,'project/edit.html', {'project':project})  
+
+
 @login_required
 def edit(request, id):  
-    logger.warning("edit called------------->");
-    project = Project.objects.get(project_id=id)  
+    logger.warning("edit called------------->");  
 
-    if project.total_deviation_days is not None:
-        messages.success(request,"test"+ str(project.total_deviation_days))
+    project = get_object_or_404(Project, pk=id)
+    
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('/project/show')
     else:
-        messages.success(request, "Total Deviation Days is empty")
-
-    #messages.success(request,str(project.total_deviation_days))
-    return render(request,'project/edit.html', {'project':project})  
+        form = ProjectForm(instance=project)
+    
+    return render(request, 'project/edit.html', {'form': form, 'project': project})
 
 @login_required
 def update(request, id):  

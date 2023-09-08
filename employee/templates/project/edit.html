@@ -6,76 +6,15 @@
     {% endfor %}
 </ul>
 {% endif %}
-
-<form method="POST" class="post-form" action="/project/update/{{project.project_id}}">
-  {% csrf_token %}
-  <div class="container">
-    <br />
-    <div class="form-group row">
-      <label class="col-sm-1 col-form-label"></label>
-      <div class="col-sm-4">
-        <h3>Update Details</h3>
-      </div>
-    </div>
-     <div class="form-group row">
-      <label class="col-sm-2 col-form-label">project Id:</label>
-      <div class="col-sm-4">
-        <input
-          type="text"
-          name="eid"
-          id="id_eid"
-          required
-          maxlength="20"
-          value="{{ project.project_id }}"
-        />
-      </div>
-    </div> 
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">project Name:</label>
-      <div class="col-sm-4">
-        <input
-          type="text"
-          name="project_name"
-          id="id_project_name"
-          required
-          maxlength="100"
-          value="{{ project.project_name }}"
-        />
-      </div>
-    </div>
-    <!-- <div class="form-group row">
-      <label class="col-sm-2 col-form-label">project Email:</label>
-      <div class="col-sm-4">
-        <input
-          type="email"
-          name="eemail"
-          id="id_eemail"
-          required
-          maxlength="254"
-          value="{{ project.eemail }}"
-        />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">project Contact:</label>
-      <div class="col-sm-4">
-        <input
-          type="text"
-          name="econtact"
-          id="id_econtact"
-          required
-          maxlength="15"
-          value="{{ project.econtact }}"
-        />
-      </div>
-    </div> -->
-    <div class="form-group row">
-      <label class="col-sm-1 col-form-label"></label>
-      <div class="col-sm-4">
-        <button type="submit" class="btn btn-success">Update</button>
-      </div>
-    </div>
-  </div>
-</form>
+<div class="container mt-5">
+  <h1>Edit Project</h1>
+  <form method="post" class="form">
+      {% csrf_token %}
+      
+      {{ form.as_p }}
+      
+      <button type="submit" class="btn btn-primary">Update Project</button>
+  </form>
+</div>
 
 {% endblock %}
