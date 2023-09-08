@@ -36,3 +36,13 @@ class Project(models.Model):
     class Meta:  
         managed = True     
         db_table = "project"  
+
+
+class Event(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='events')
+    event_name = models.CharField(max_length=100)
+    event_date = models.DateField()
+    # Add any other fields specific to your Event model
+
+    def __str__(self):
+        return self.event_name

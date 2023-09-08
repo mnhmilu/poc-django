@@ -1,5 +1,5 @@
 from django import forms  
-from employee.models import Employee,Project  
+from employee.models import Employee,Project,Event  
 from django.conf import settings
 
 class DateInput(forms.DateInput):
@@ -28,4 +28,15 @@ class ProjectForm(forms.ModelForm):
             'revised_due_date': DateInput()            
         }
        
-        
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ['event_name', 'event_date']        
+        widgets = {
+            'event_date': DateInput()                    
+        }
+
+class EventListForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = '__all__'  # Display all fields from the Event model

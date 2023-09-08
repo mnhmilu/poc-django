@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect  ,get_object_or_404
-from employee.forms import ProjectForm  
-from employee.models import Project  
+from employee.forms import ProjectForm,EventForm,EventListForm  
+from employee.models import Project,Event  
 from django.http import HttpResponse
 from django.contrib import messages
 from reportlab.pdfgen import canvas
@@ -174,3 +174,30 @@ def project_lookup(request):
 def reload_view(request):
    messages.success(request, "reload called!");
    return redirect('/project/show')
+
+def add_event_to_project(request, project_id):
+    project = get_object_or_404(Project, pk=project_id)
+
+    if request.method == 'POST':
+        event_form = EventForm(request.POST)
+        if event_form.is_valid():
+            event = event_form.save(commit=False)
+            event.project = project
+            event.save()
+            return redirect('/project/show')  # Replace 'project_list' with your actual URL name
+            #return redirect('/project/add_event', project_id=project.project_id );
+    else:
+    
+    # Retrieve a list of events associated with the project as a QuerySet
+        events = Event.objects.filter(project=project)
+
+    project_form = ProjectForm(instance=project)
+    event_form = EventForm()
+
+    context = {
+        'project': project,
+        'events': events,  # Pass the QuerySet of events to the template
+        'project_form': project_form,
+        'event_form': event_form,
+    }
+    return render(request, 'project/add_event_to_project.html', context)
