@@ -20,7 +20,7 @@ class Project(models.Model):
     project_status = models.CharField(max_length=100)  
     due_date=models.DateField()
     revised_due_date=models.DateField()
-    total_deviation_days=models.IntegerField
+    total_deviation_days=models.IntegerField(default=0)
     team_lead=models.CharField(max_length=50,blank=True)
     project_poc=models.CharField(max_length=50,blank=True)
     notification_sms_recipient=models.CharField(max_length=100, blank=True)
