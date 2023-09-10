@@ -42,6 +42,7 @@ class Event(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='events')
     event_name = models.CharField(max_length=100)
     event_date = models.DateField()
+    event_remarks=models.CharField(max_length=250,blank=True)
     # Add any other fields specific to your Event model
 
     def __str__(self):

@@ -200,3 +200,10 @@ def add_event_to_project(request,id):
         'event_form': event_form,
     }
     return render(request, 'project/add_event_to_project.html', context)
+
+@login_required
+def destroy_project_event(request, id):
+    event = get_object_or_404(Event, pk=id)  
+    project_id=event.project_id;
+    event.delete()  
+    return redirect('add_event_to_project', project_id);

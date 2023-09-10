@@ -29,11 +29,22 @@ class ProjectForm(forms.ModelForm):
         }
        
 class EventForm(forms.ModelForm):
+
+    EVENT_NAME_CHOICES = [
+        ('QA FAILED', 'QA FAILED'),
+        ('API ERROR', 'API ERROR'),
+         ('OTHERS', 'OTHERS'),  # Add "OTHERS" as a choice
+    ]
+
+    event_name = forms.ChoiceField(choices=EVENT_NAME_CHOICES, initial='OTHERS')
+    
     class Meta:
         model = Event
-        fields = ['event_name', 'event_date']        
+        fields = ['event_date','event_name','event_remarks']          
         widgets = {
-            'event_date': DateInput()                    
+            'event_remarks': forms.Textarea(attrs={'rows': 3, 'cols': 80}),  # Customize the rows and cols as needed         
+            'event_date': DateInput(),
+           
         }
 
 class EventListForm(forms.ModelForm):
