@@ -4,10 +4,23 @@
   <h2>Add Event to {{ project.project_name }}</h2>
 
 
-  <form method="post" action="{% url 'add_event_to_project' project.project_id %}">
+  <!-- <form method="post" action="{% url 'add_event_to_project' project.project_id %}">
     {% csrf_token %}
     {{ event_form.as_table }}
     <button type="submit" class="btn btn-primary">Save Event</button>
+  </form> -->
+
+  <form method="{% url 'add_event_to_project' project.project_id %}">
+    {% for field in event_form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field }}
+        <!-- {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %} -->
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
   <h3>Event List</h3>
