@@ -35,14 +35,10 @@
       <th>Project Status</th>
       <th>Due Date</th>
       <th>Revised Due Date</th>
-      <th>Total Deviation</th>
-      
+      <th>Total Deviation</th>    
       <th>Team Lead</th>
       <th>POC</th>
-      <th>Notification SMS</th>
-      <th>Notification Email</th>
       <th>Block Status</th>
-      <th>Remarks</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -57,10 +53,8 @@
       <td>{{ project.total_deviation_days }}</td>
       <td>{{ project.team_lead }}</td>
       <td>{{ project.project_poc }}</td>
-      <td>{{ project.notification_sms_recipient }}</td>
-      <td>{{ project.notification_email_recipient }}</td>
       <td>{{ project.block_status }}</td>
-      <td>{{ project.remarks }}</td>
+     
 
       <td>
         <a href="/project/edit/{{ project.project_id }}"

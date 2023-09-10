@@ -12,20 +12,25 @@ class EmployeeForm(forms.ModelForm):
 
 
 PROJECT_STATUS = (
-    ('initiated','INITIATED'),
-    ('InDev', 'IN_DEV'),
-    ('InQA','IN_QA')
+    ('INITIATED','initiated'),
+    ('IN_DEV', 'in dev'),
+    ('IN_QA','in qa')
   
 )
 
 class ProjectForm(forms.ModelForm):    
+
+    project_status = forms.ChoiceField(choices=PROJECT_STATUS, initial='initiated')
+
     class Meta:  
         model = Project  
         fields = "__all__"  
         # widget=forms.Select(choices=PROJECT_STATUS)
+        exclude=['inserted_by','updated_by']
         widgets = {
             'due_date': DateInput(),
-            'revised_due_date': DateInput()            
+            'revised_due_date': DateInput() ,
+            'remarks': forms.Textarea(attrs={'rows': 3, 'cols': 50}),            
         }
        
 class EventForm(forms.ModelForm):
