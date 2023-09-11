@@ -4,22 +4,25 @@
 </br>
 
 <div >
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-4">
+  <div class="row g-3"> 
+   
         <form class="form-inline" method="get">
-          <div class="form-group">
+          <div class="col-sm-8">
             <input type="text" class="form-control" name="project_name" placeholder="Enter Project Name" value="{{ request.GET.project_name }}">
           </div>
+          <div class="col-sm">
           <button type="submit" class="btn btn-primary">Search</button>
+        </div>
         </form> 
-      </div>
-      <div class="col-md-2">
+     
+      <div class="col-sm">
         <form class="form-inline" method="get" action="{% url 'project_reload' %}">
           <button type="submit" class="btn btn-primary">Reload</button>
         </form>
       </div>
-    </div>
+      <div class="col-sm">
+      </div>
+    
   </div>
   
   
