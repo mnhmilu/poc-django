@@ -11,16 +11,24 @@ class EmployeeForm(forms.ModelForm):
         fields = "__all__"  
 
 
-PROJECT_STATUS = (
+
+
+class ProjectForm(forms.ModelForm):    
+
+    PROJECT_STATUS = (
     ('INITIATED','initiated'),
     ('IN_DEV', 'in dev'),
     ('IN_QA','in qa')
   
-)
-
-class ProjectForm(forms.ModelForm):    
+   )
 
     project_status = forms.ChoiceField(choices=PROJECT_STATUS, initial='initiated')
+
+    def get_project_status_display(self):
+        return dict(self.PROJECT_STATUS)[self.project_status]
+
+    def __str__(self):
+        return self.project_status
 
     class Meta:  
         model = Project  
@@ -32,6 +40,7 @@ class ProjectForm(forms.ModelForm):
             'revised_due_date': DateInput() ,
             'remarks': forms.Textarea(attrs={'rows': 3, 'cols': 50}),            
         }
+    
        
 class EventForm(forms.ModelForm):
 

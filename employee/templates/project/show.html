@@ -50,7 +50,7 @@
     <tr>
       <td>{{ project.project_id }}</td>
       <td>{{ project.project_name }}</td>
-      <td>{{ project.project_status }}</td>
+      <td>{{ project.get_project_status_display }}</td>    
       <td>{{ project.due_date | date:"M d, Y"}}</td>
       <td>{{ project.revised_due_date}}</td>    
       <td>{{ project.total_deviation_days }}</td>

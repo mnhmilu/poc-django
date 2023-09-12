@@ -17,9 +17,15 @@ class Employee(models.Model):
 
 
 class Project(models.Model):  
+    PROJECT_STATUS = (
+        ('INITIATED', 'Initiated'),
+        ('IN_DEV', 'In Development'),
+        ('IN_QA', 'In QA')
+    )
+
     project_id = models.AutoField(primary_key=True)
     project_name = models.CharField(max_length=100)  
-    project_status = models.CharField(max_length=100,default='initiated')  
+    #project_status = models.CharField(max_length=100,default='initiated')  
     due_date=models.DateField()
     revised_due_date=models.DateField()
     total_deviation_days=models.IntegerField(default=0)
@@ -33,6 +39,9 @@ class Project(models.Model):
     updated_by=models.CharField(max_length=250,default="admin",blank=True)
     update_date=models.DateTimeField(auto_now_add=True)    
     remarks=models.CharField(max_length=250,blank=True)
+
+
+    project_status = models.CharField(max_length=20, choices=PROJECT_STATUS)
     class Meta:  
         managed = True     
         db_table = "project"  
