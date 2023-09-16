@@ -11,8 +11,12 @@
             <input type="text" class="form-control" name="project_name" placeholder="Enter Project Name" value="{{ request.GET.project_name }}">
           </div>
           <div class="col-sm">
+            OR
+          </div>
+          <div class="col-sm">
           
             <select name="project_status" class="form-control" id="id_project_status">
+              <option value="" {% if not request.GET.project_status %}selected{% endif %}>Select Status</option>
               {% for choice_key, choice_label in form.project_status.field.choices %}
                   <option value="{{ choice_key }}" {% if choice_key == form.project_status.value %}selected{% endif %}>
                       {{ choice_label }}

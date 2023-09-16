@@ -10,12 +10,9 @@ class EmployeeForm(forms.ModelForm):
         model = Employee  
         fields = "__all__"  
 
-
-
-
 class ProjectForm(forms.ModelForm):    
 
-    PROJECT_STATUS = (
+    PROJECT_STATUS = (        
         ('INITIATED', 'Initiated'),
         ('IN_DEV', 'In Development'),
         ('IN_QA', 'In QA')
