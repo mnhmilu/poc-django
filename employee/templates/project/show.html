@@ -7,9 +7,20 @@
   <div class="row g-3"> 
    
         <form class="form-inline" method="get">
-          <div class="col-sm-8">
+          <div class="col-sm">
             <input type="text" class="form-control" name="project_name" placeholder="Enter Project Name" value="{{ request.GET.project_name }}">
           </div>
+          <div class="col-sm">
+          
+            <select name="project_status" class="form-control" id="id_project_status">
+              {% for choice_key, choice_label in form.project_status.field.choices %}
+                  <option value="{{ choice_key }}" {% if choice_key == form.project_status.value %}selected{% endif %}>
+                      {{ choice_label }}
+                  </option>
+              {% endfor %}
+           </select>
+          </div>
+        
           <div class="col-sm">
           <button type="submit" class="btn btn-primary">Search</button>
         </div>

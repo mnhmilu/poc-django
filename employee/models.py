@@ -39,9 +39,8 @@ class Project(models.Model):
     updated_by=models.CharField(max_length=250,default="admin",blank=True)
     update_date=models.DateTimeField(auto_now_add=True)    
     remarks=models.CharField(max_length=250,blank=True)
-
-
     project_status = models.CharField(max_length=20, choices=PROJECT_STATUS)
+    
     class Meta:  
         managed = True     
         db_table = "project"  

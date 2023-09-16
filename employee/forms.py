@@ -16,11 +16,10 @@ class EmployeeForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):    
 
     PROJECT_STATUS = (
-    ('INITIATED','initiated'),
-    ('IN_DEV', 'in dev'),
-    ('IN_QA','in qa')
-  
-   )
+        ('INITIATED', 'Initiated'),
+        ('IN_DEV', 'In Development'),
+        ('IN_QA', 'In QA')
+    )
 
     project_status = forms.ChoiceField(choices=PROJECT_STATUS, initial='initiated')
 
@@ -33,7 +32,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:  
         model = Project  
         fields = "__all__"  
-        # widget=forms.Select(choices=PROJECT_STATUS)
+        #widget=forms.Select(choices=PROJECT_STATUS)
         exclude=['inserted_by','updated_by']
         widgets = {
             'due_date': DateInput(),

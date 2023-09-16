@@ -157,17 +157,29 @@ def export_pdf(request):
 
 @login_required
 def project_lookup(request):
+
     projectname_query = request.GET.get('project_name', '')
+    projectstatus_query = request.GET.get('project_status', '')
+
+    projects = Project.objects.all()
+
+    if projectname_query:    
+        projects = Project.objects.filter(project_name__icontains=projectname_query)
+    
+    if projectstatus_query:    
+        projects = Project.objects.filter(project_status__icontains=projectstatus_query)
+    
 
     logger.warning("-------------> project lookup called")
    
     # Assuming you want to display 10 projects per page
-    projects = Project.objects.filter(project_name__icontains=projectname_query)
+    
     paginator = Paginator(projects, 5)  # 10 projects per page
 
     page_number = request.GET.get('page')
     projects = paginator.get_page(page_number)
-    return render(request, 'project/show.html', {'projects': projects})
+    form = ProjectForm() 
+    return render(request, 'project/show.html', {'projects': projects, 'form':form})
 
 
 @login_required
