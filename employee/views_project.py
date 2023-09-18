@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 #     return render(request,"dashboard.html");
 
 @login_required
-def proj(request):  
+def add(request):  
 
     logger.info("proj------------> called");
     if request.method == "POST":  
@@ -26,19 +26,19 @@ def proj(request):
         if form.is_valid():  
             try:  
                 form.save()  
-                return redirect('/project/show')  
+                return redirect('/project/index')  
             except:  
                 pass  
         else:            
             messages.error(request,form.errors)  
     else:  
         form = ProjectForm()  
-    return render(request,'project/index.html',{'form':form})  
+    return render(request,'project/add.html',{'form':form})  
 
 @login_required
 def show(request):  
     projects = Project.objects.all()  
-    return render(request,"project/show.html",{'projects':projects})  
+    return render(request,"project/index.html",{'projects':projects})  
 
 # @login_required
 # def edit(request, id):  
@@ -64,7 +64,7 @@ def edit(request, id):
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('/project/show')
+            return redirect('/project/index')
     else:
         form = ProjectForm(instance=project)
     
@@ -82,7 +82,7 @@ def update(request, id):
 
     if form.is_valid():  
         form.save()  
-        return redirect("/project/show")
+        return redirect("/project/index")
     else:
         messages.error(request,form.errors)  
     return render(request, 'project/edit.html', {'project': project})  
@@ -91,7 +91,7 @@ def update(request, id):
 def destroy(request, id):  
     project = Project.objects.get(project_id=id)  
     project.delete()  
-    return redirect("/project/show")  
+    return redirect("/project/index")  
 @login_required
 def export(request):
     # Create the HttpResponse object with the appropriate CSV header.
@@ -179,13 +179,13 @@ def project_lookup(request):
     page_number = request.GET.get('page')
     projects = paginator.get_page(page_number)
     form = ProjectForm() 
-    return render(request, 'project/show.html', {'projects': projects, 'form':form})
+    return render(request, 'project/index.html', {'projects': projects, 'form':form})
 
 
 @login_required
 def reload_view(request):
    messages.success(request, "reload called!");
-   return redirect('/project/show')
+   return redirect('/project/index')
 
 def add_event_to_project(request,id):
     project = get_object_or_404(Project, pk=id)

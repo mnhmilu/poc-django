@@ -26,8 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),  
     path('dashboard/',views.home),
     
-    path('project/proj', views_project.proj),  
-    path('project/show', views_project.project_lookup, name='project_lookup'),
+    path('project/add', views_project.add),  
+    path('project/index', views_project.project_lookup, name='project_lookup'),
     path('project/reload/', views_project.reload_view, name='project_reload'),
     path('project/edit/<int:id>', views_project.edit),  
     path('project/update/<int:id>', views_project.update),  
