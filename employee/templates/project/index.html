@@ -71,7 +71,8 @@
       <td>{{ project.total_deviation_days }}</td>
       <td>{{ project.team_lead }}</td>
       <td>{{ project.project_poc }}</td>
-      <td>{{ project.block_status }}</td>
+      <td>{% if project.block_status %}Yes{% else %}No{% endif %}</td>
+
      
 
       <td>
