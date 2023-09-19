@@ -14,6 +14,7 @@ from django.utils.dateformat import format
 from reportlab.lib.pagesizes import letter,landscape
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from reportlab.lib import colors
+from .choices import PROJECT_STATUS_CHOICES,EVENT_NAME_CHOICES
 
 # Create your views here.  
 
@@ -124,6 +125,8 @@ def export_pdf(request):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="mydata.pdf"'
 
+    PROJECT_STATUS_CHOICES_DICT = dict(PROJECT_STATUS_CHOICES)
+
     # Create the PDF object
     pdf = SimpleDocTemplate(response, pagesize=landscape(letter))
 
@@ -133,7 +136,7 @@ def export_pdf(request):
     ]
     
     for obj in Project.objects.all():
-        data.append([obj.project_id, obj.project_name,obj.project_status, obj.due_date, obj.revised_due_date,
+        data.append([obj.project_id, obj.project_name,PROJECT_STATUS_CHOICES_DICT.get(obj.project_status, 'Unknown') , obj.due_date, obj.revised_due_date,
                      obj.total_deviation_days, obj.block_status, obj.project_poc, obj.remarks])
 
     # Create the table and style
