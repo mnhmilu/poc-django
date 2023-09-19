@@ -10,6 +10,11 @@ import csv
 import logging
 from django.http import HttpResponse
 from django.utils.dateformat import format
+
+from reportlab.lib.pagesizes import letter,landscape
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib import colors
+
 # Create your views here.  
 
 logger = logging.getLogger(__name__)
@@ -119,41 +124,76 @@ def export_pdf(request):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="mydata.pdf"'
 
-    # Create the PDF object, using the response object as its "file."fffhhh
-    p = canvas.Canvas(response)
+    # Create the PDF object
+    pdf = SimpleDocTemplate(response, pagesize=landscape(letter))
 
-    # Define the width and height of each row in the table
-    row_height = 20
-    column_width = 150
-
-    # Define the data to be printed in the table
+    # Create a list of data for the table
     data = [
-        ['ID', 'Name', 'Email'],
+        ['ID', 'Project Name', 'Project Status', 'Due Date', 'Revised Due Date', 'Delayed', 'Blocked?', 'POC', 'Remarks']
     ]
+    
     for obj in Project.objects.all():
-        data.append([obj.eid, obj.ename, obj.eemail])
+        data.append([obj.project_id, obj.project_name,obj.project_status, obj.due_date, obj.revised_due_date,
+                     obj.total_deviation_days, obj.block_status, obj.project_poc, obj.remarks])
 
-    # Define border settings
-    border_color = (0, 0, 0)  # Black
-    border_width = 1
+    # Create the table and style
+    table = Table(data)
+    style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+    ])
+    table.setStyle(style)
 
-    # Draw the table with borders
-    x = 50
-    y = 750
-    for row in data:
-        for item in row:
-            # Draw the cell border
-            p.rect(x, y, column_width, -row_height, stroke=1, fill=0)
-            p.drawString(x + 2, y - 12, str(item))  # Add 2 to x for padding
-            x += column_width
-        x = 50
-        y -= row_height
-
-    # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
+    # Build the PDF
+    elements = []
+    elements.append(table)
+    pdf.build(elements)
 
     return response
+# def export_pdf(request):
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="mydata.pdf"'
+
+#     # Create the PDF object, using the response object as its "file."fffhhh
+#     p = canvas.Canvas(response)
+
+#     # Define the width and height of each row in the table
+#     row_height = 20
+#     column_width = 100
+
+#     # Define the data to be printed in the table
+#     data = [
+#         ['ID', 'Project Name', 'Project Staus','Due Date', 'Revised Due Date','Delayed', 'Blocked?','POC','Remarks'],
+#     ]
+#     for obj in Project.objects.all():
+#         data.append([obj.project_id, obj.project_name, obj.due_date,obj.revised_due_date,obj.total_deviation_days,obj.block_status,obj.project_poc,obj.remarks])
+
+#     # Define border settings
+#     border_color = (0, 0, 0)  # Black
+#     border_width = 1
+
+#     # Draw the table with borders
+#     x = 50
+#     y = 750
+#     for row in data:
+#         for item in row:
+#             # Draw the cell border
+#             p.rect(x, y, column_width, -row_height, stroke=1, fill=0)
+#             p.drawString(x + 2, y - 12, str(item))  # Add 2 to x for padding
+#             x += column_width
+#         x = 50
+#         y -= row_height
+
+#     # Close the PDF object cleanly, and we're done.
+#     p.showPage()
+#     p.save()
+
+#     return response
 
 @login_required
 def project_lookup(request):
