@@ -15,7 +15,13 @@ from reportlab.lib.pagesizes import letter,landscape
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from reportlab.lib import colors
 from .choices import PROJECT_STATUS_CHOICES,EVENT_NAME_CHOICES
+from datetime import date
+# Create a Paragraph for the headline with the current date
+from reportlab.platypus import Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
 
+
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 # Create your views here.  
 
 logger = logging.getLogger(__name__)
@@ -122,6 +128,15 @@ from reportlab.pdfgen import canvas
 
 @login_required
 def export_pdf(request):
+
+    h2_style = ParagraphStyle(
+    'Heading2',
+    parent=getSampleStyleSheet()['Heading2'],
+    fontSize=16,  # Adjust the font size as needed
+    leading=20,   # Adjust the leading (line spacing) as needed
+    )
+
+
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="mydata.pdf"'
 
@@ -136,7 +151,7 @@ def export_pdf(request):
     ]
     
     for obj in Project.objects.all():
-        data.append([obj.project_id, obj.project_name,PROJECT_STATUS_CHOICES_DICT.get(obj.project_status, 'Unknown') , obj.due_date, obj.revised_due_date,
+        data.append([obj.project_id, obj.project_name, PROJECT_STATUS_CHOICES_DICT.get(obj.project_status, 'Unknown'), obj.due_date, obj.revised_due_date,
                      obj.total_deviation_days, obj.block_status, obj.project_poc, obj.remarks])
 
     # Create the table and style
@@ -152,51 +167,20 @@ def export_pdf(request):
     ])
     table.setStyle(style)
 
+    
+    styles = getSampleStyleSheet()
+    # Create a Paragraph for the headline with the "h2" style
+    headline = Paragraph("<b>Project Status Report</b>", h2_style)
+
+    # Create a Paragraph for the current date
+    current_date = Paragraph("Date: {}".format(date.today()), styles["Normal"])
+
     # Build the PDF
-    elements = []
-    elements.append(table)
+    elements = [headline, current_date, table]
     pdf.build(elements)
 
     return response
-# def export_pdf(request):
-#     response = HttpResponse(content_type='application/pdf')
-#     response['Content-Disposition'] = 'attachment; filename="mydata.pdf"'
 
-#     # Create the PDF object, using the response object as its "file."fffhhh
-#     p = canvas.Canvas(response)
-
-#     # Define the width and height of each row in the table
-#     row_height = 20
-#     column_width = 100
-
-#     # Define the data to be printed in the table
-#     data = [
-#         ['ID', 'Project Name', 'Project Staus','Due Date', 'Revised Due Date','Delayed', 'Blocked?','POC','Remarks'],
-#     ]
-#     for obj in Project.objects.all():
-#         data.append([obj.project_id, obj.project_name, obj.due_date,obj.revised_due_date,obj.total_deviation_days,obj.block_status,obj.project_poc,obj.remarks])
-
-#     # Define border settings
-#     border_color = (0, 0, 0)  # Black
-#     border_width = 1
-
-#     # Draw the table with borders
-#     x = 50
-#     y = 750
-#     for row in data:
-#         for item in row:
-#             # Draw the cell border
-#             p.rect(x, y, column_width, -row_height, stroke=1, fill=0)
-#             p.drawString(x + 2, y - 12, str(item))  # Add 2 to x for padding
-#             x += column_width
-#         x = 50
-#         y -= row_height
-
-#     # Close the PDF object cleanly, and we're done.
-#     p.showPage()
-#     p.save()
-
-#     return response
 
 @login_required
 def project_lookup(request):
