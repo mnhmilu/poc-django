@@ -35,6 +35,7 @@ urlpatterns = [
     path('project/delete_event/<int:id>', views_project.destroy_project_event),  
     path('project/add_event/<int:id>/', views_project.add_event_to_project, name='add_event_to_project'),
     path('project/exportpdf',views_project.export_pdf),    
+     path('project/export',views_project.export),    
 
 
     path('employee/emp', views.emp),  

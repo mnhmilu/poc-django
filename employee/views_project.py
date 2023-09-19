@@ -104,6 +104,9 @@ def destroy(request, id):
     project = Project.objects.get(project_id=id)  
     project.delete()  
     return redirect("/project/index")  
+
+PROJECT_STATUS_CHOICES_DICT = dict(PROJECT_STATUS_CHOICES)
+
 @login_required
 def export(request):
     # Create the HttpResponse object with the appropriate CSV header.
@@ -112,14 +115,15 @@ def export(request):
         headers={"Content-Disposition": 'attachment; filename="somefilename.csv"'},
     )
 
-    emplist = Project.objects.all();
+    project_list = Project.objects.all();
     
 
     writer = csv.writer(response)
 
-    writer.writerow(["ID", "Name"])
-    for project in emplist: 
-       writer.writerow([project.eid, project.ename]);
+    writer.writerow(['ID', 'Project Name', 'Project Status', 'Due Date', 'Revised Due Date', 'Delayed', 'Blocked?', 'POC', 'Remarks'])
+    for obj in project_list: 
+       writer.writerow([obj.project_id, obj.project_name, PROJECT_STATUS_CHOICES_DICT.get(obj.project_status, 'Unknown'), obj.due_date, obj.revised_due_date,
+                     obj.total_deviation_days, obj.block_status, obj.project_poc, obj.remarks]);
    
     return response
 
@@ -140,7 +144,7 @@ def export_pdf(request):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="mydata.pdf"'
 
-    PROJECT_STATUS_CHOICES_DICT = dict(PROJECT_STATUS_CHOICES)
+    
 
     # Create the PDF object
     pdf = SimpleDocTemplate(response, pagesize=landscape(letter))
