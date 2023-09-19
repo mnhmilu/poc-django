@@ -17,7 +17,7 @@ from reportlab.lib import colors
 from .choices import PROJECT_STATUS_CHOICES,EVENT_NAME_CHOICES
 from datetime import date
 # Create a Paragraph for the headline with the current date
-from reportlab.platypus import Paragraph
+from reportlab.platypus import Paragraph,Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 
 
@@ -171,12 +171,14 @@ def export_pdf(request):
     styles = getSampleStyleSheet()
     # Create a Paragraph for the headline with the "h2" style
     headline = Paragraph("<b>Project Status Report</b>", h2_style)
+    
+    spacer = Spacer(1, 20)  # Adjust the height as needed
 
     # Create a Paragraph for the current date
     current_date = Paragraph("Date: {}".format(date.today()), styles["Normal"])
 
     # Build the PDF
-    elements = [headline, current_date, table]
+    elements = [headline,spacer,current_date,spacer, table]
     pdf.build(elements)
 
     return response
