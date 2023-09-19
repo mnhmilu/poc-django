@@ -1,6 +1,7 @@
 from django import forms  
 from employee.models import Employee,Project,Event  
 from django.conf import settings
+from .choices import PROJECT_STATUS_CHOICES,EVENT_NAME_CHOICES
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -12,13 +13,8 @@ class EmployeeForm(forms.ModelForm):
 
 class ProjectForm(forms.ModelForm):    
 
-    PROJECT_STATUS = (        
-        ('INITIATED', 'Initiated'),
-        ('IN_DEV', 'In Development'),
-        ('IN_QA', 'In QA')
-    )
 
-    project_status = forms.ChoiceField(choices=PROJECT_STATUS, initial='initiated')
+    project_status = forms.ChoiceField(choices=PROJECT_STATUS_CHOICES, initial='initiated')
 
     def get_project_status_display(self):
         return dict(self.PROJECT_STATUS)[self.project_status]
@@ -39,12 +35,6 @@ class ProjectForm(forms.ModelForm):
     
        
 class EventForm(forms.ModelForm):
-
-    EVENT_NAME_CHOICES = [
-        ('QA FAILED', 'QA FAILED'),
-        ('API ERROR', 'API ERROR'),
-         ('OTHERS', 'OTHERS'),  # Add "OTHERS" as a choice
-    ]
 
     event_name = forms.ChoiceField(choices=EVENT_NAME_CHOICES, initial='OTHERS')
     
