@@ -19,7 +19,10 @@ from django.urls import path
 from employee import views  
 from employee import views_project
 from django.urls import path, include
+
 from django.views.generic.base import TemplateView # new
+
+from employee.view_api import ProjectListCreateView
 
 urlpatterns = [  
     
@@ -35,7 +38,9 @@ urlpatterns = [
     path('project/delete_event/<int:id>', views_project.destroy_project_event),  
     path('project/add_event/<int:id>/', views_project.add_event_to_project, name='add_event_to_project'),
     path('project/exportpdf',views_project.export_pdf),    
-     path('project/export',views_project.export),    
+    path('project/export',views_project.export),    
+
+    path('project/projects', ProjectListCreateView.as_view(), name='project-list-create'),
 
 
     path('employee/emp', views.emp),  
