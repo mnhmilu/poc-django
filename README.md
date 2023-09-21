@@ -82,6 +82,20 @@ STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')
 https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
+## How to add rest support 
+
+`pip install djangorestframework`
+
+see view api for example
+
+
+path('project/projects', ProjectListCreateView.as_view(), name='project-list-create'),
+
+
+ Json or APi doc available 
+
+> http://127.0.0.1:8000/project/projects?format=api
+
 ## Reference  
 
 [Authentication-How to ](https://learndjango.com/tutorials/django-login-and-logout-tutorial)
