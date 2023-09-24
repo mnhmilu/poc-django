@@ -1,7 +1,8 @@
 PROJECT_STATUS_CHOICES = (        
     ('INITIATED', 'Initiated'),
     ('IN_DEV', 'In Development'),
-    ('IN_QA', 'In QA')
+    ('IN_QA', 'In QA'),
+    ('COMPLETED', 'Completed')
 )
 
 

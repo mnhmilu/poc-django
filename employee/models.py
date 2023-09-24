@@ -3,6 +3,7 @@
 
 from django import forms
 from django.db import models  
+from .choices import PROJECT_STATUS_CHOICES
 
 class Employee(models.Model):  
     eid = models.CharField(max_length=20)  
@@ -17,11 +18,7 @@ class Employee(models.Model):
 
 
 class Project(models.Model):  
-    PROJECT_STATUS = (
-        ('INITIATED', 'Initiated'),
-        ('IN_DEV', 'In Development'),
-        ('IN_QA', 'In QA')
-    )
+    PROJECT_STATUS = PROJECT_STATUS_CHOICES
 
     project_id = models.AutoField(primary_key=True)
     project_name = models.CharField(max_length=100)  

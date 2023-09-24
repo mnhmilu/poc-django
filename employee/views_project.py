@@ -85,12 +85,13 @@ def show(request):
 
 @login_required
 def edit(request, id):  
-    logger.warning("edit called------------->");  
+    logger.warning("edit called------------->with"+request.method);  
 
     project = get_object_or_404(Project, pk=id)
     
     if request.method == 'POST':
         form = ProjectForm(request.POST, instance=project)
+        messages.error(request,form.errors)  
         if form.is_valid():
             form.save()
             return redirect('/project/index')
