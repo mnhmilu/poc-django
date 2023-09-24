@@ -4,36 +4,6 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-
-
-<div style="display: flex;justify-content: center;align-items: center;">
-    <h1>Project Dashboard</h1>
-</div>
-
-
-<h3>Project Summary</h3>
-<div class="container">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Project Status</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in project_data %}
-            <tr>
-                <td>{{ data.project_status }}</td>
-                <td>{{ data.total }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-</br></br></br></br>
-
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <h3>Project Status Pie Chart</h3>
 <div style="width: 300px; margin: 0 auto;">
@@ -94,6 +64,38 @@ $.ajax({
 
    
 </script>
+
+
+</br></br></br></br>
+
+<div style="display: flex;justify-content: center;align-items: center;">
+    <h1>Project Dashboard</h1>
+</div>
+
+
+<h3>Project Summary</h3>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project Status</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in project_data %}
+            <tr>
+                <td>{{ data.project_status }}</td>
+                <td>{{ data.total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
 
 
 
