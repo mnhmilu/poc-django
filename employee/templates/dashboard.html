@@ -6,6 +6,7 @@
 {% block content %}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <div style="width: 300px; margin: 0 auto;">
     <canvas id="projectStatusChart"></canvas>
     <p class="text-center">Overall Project Status</p>
@@ -14,6 +15,7 @@
 <div style="width: 600px; margin: 0 auto;">
     <canvas id="delayCountChart"></canvas>
     <p class="text-center">Weekly Project Flag Status</p>
+
 </div>
 
 <script>
@@ -44,27 +46,61 @@
         },
     });
 </script>
-  <script>
-    // Get the canvas element and create a context
-    var ctx = document.getElementById("projectStatusChart").getContext("2d");
-  
-    // Define your data
-    var data = {
-      labels: ["Running", "Blocked", "In QA", "In UAT"],
-      datasets: [
-        {
-          data: [15, 20, 10, 5],
-          backgroundColor: ["#36A2EB", "#FFCE56", "#FF6384", "#4BC0C0"],
-        },
-      ],
-    };
-  
-    // Create a pie chart
-    var pieChart = new Chart(ctx, {
-      type: "pie",
-      data: data,
-    });
-  </script>
+<h1>Project Status Pie Chart</h1>
+<canvas id="projectStatusChart" width="400" height="400"></canvas>
+
+<script>
+
+$.ajax({
+    url: 'http://127.0.0.1:8000/project/dashboardlist',  // Update the URL to your desired endpoint
+    type: 'GET',
+    dataType: 'json',
+    success: function(data) {
+        var projectData = data;
+        console.log(projectData);
+        // Use projectData in your JavaScript code
+        var labels = projectData.map(function(item) {
+            return item.project_status;
+        });
+
+        var data = projectData.map(function(item) {
+            return item.total;
+        });
+
+        var ctx = document.getElementById('projectStatusChart').getContext('2d');
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                        // Add more colors as needed
+                    ],
+                }],
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                },
+            },
+        });
+
+    },
+    error: function(error) {
+        console.error('Error fetching project data: ', error);
+    }
+});
+
+   
+</script>
   
 
 {% endblock %}

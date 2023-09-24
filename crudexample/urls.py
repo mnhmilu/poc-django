@@ -27,8 +27,9 @@ from employee.view_api import ProjectListCreateView
 urlpatterns = [  
     
     path('admin/', admin.site.urls),  
-    path('dashboard/',views.home),
-    
+    path('dashboard/',views_project.home),
+
+    path('project/dashboardlist',views_project.get_project_data),
     path('project/add', views_project.add),  
     path('project/index', views_project.project_lookup, name='project_lookup'),
     path('project/reload/', views_project.reload_view, name='project_reload'),

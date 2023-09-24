@@ -13,8 +13,8 @@ from django.http import HttpResponse
 
 logger = logging.getLogger(__name__)
 
-def home(request):
-    return render(request,"dashboard.html");
+# def home(request):
+#     return render(request,"dashboard.html");
 
 @login_required
 def emp(request):  

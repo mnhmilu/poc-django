@@ -19,15 +19,32 @@ from datetime import date
 # Create a Paragraph for the headline with the current date
 from reportlab.platypus import Paragraph,Spacer
 from reportlab.lib.styles import getSampleStyleSheet
-
+from django.db.models import Count, F
 
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 # Create your views here.  
-
+from django.http import JsonResponse
 logger = logging.getLogger(__name__)
 
 # def home(request):
 #     return render(request,"dashboard.html");
+
+def get_project_data(request):
+    queryset = Project.objects.values('project_status').annotate(total=Count('project_status')).order_by()
+    data = list(queryset)
+    return JsonResponse(data, safe=False)
+
+def home(request):
+
+    queryset =  Project.objects.values('project_status').annotate(total=Count('project_status')).order_by()
+
+    context = {
+        'project_data': queryset,
+    }
+
+    return render(request,"dashboard.html",context);
+
+
 
 @login_required
 def add(request):  
