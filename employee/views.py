@@ -9,6 +9,7 @@ from django.contrib import messages
 import csv
 import logging
 from django.http import HttpResponse
+from django.contrib.auth.decorators import user_passes_test  
 # Create your views here.  
 
 logger = logging.getLogger(__name__)
@@ -17,6 +18,7 @@ logger = logging.getLogger(__name__)
 #     return render(request,"dashboard.html");
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='companyGroup').exists())
 def emp(request):  
     if request.method == "POST":  
         form = EmployeeForm(request.POST)  
@@ -31,6 +33,7 @@ def emp(request):
     return render(request,'employee/index.html',{'form':form})  
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='companyGroup').exists())
 def show(request):  
     employees = Employee.objects.all()  
     return render(request,"employee/show.html",{'employees':employees})  

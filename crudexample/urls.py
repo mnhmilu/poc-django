@@ -51,8 +51,11 @@ urlpatterns = [
     path('employee/update/<int:id>', views.update),  
     path('employee/delete/<int:id>', views.destroy),  
     path('employee/reload/', views.reload_view, name='reload'),
-    path('employee/show', views.employee_lookup, name='employee_lookup'),
+    path('employee/show',views.employee_lookup, name='employee_lookup'),
     
     path("accounts/", include("django.contrib.auth.urls")),  # new
     path('', TemplateView.as_view(template_name='dashboard.html'), name='dashboard')
 ]  
+
+def user_is_operator(user):
+    return user.groups.filter(name='operator').exists() #and user.has_perm('auth.add_project')

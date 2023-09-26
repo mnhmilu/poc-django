@@ -29,6 +29,8 @@ logger = logging.getLogger(__name__)
 # def home(request):
 #     return render(request,"dashboard.html");
 
+
+# Rest api for chart
 def get_project_data(request):
     queryset = Project.objects.values('project_status').annotate(total=Count('project_status')).order_by()
     data = list(queryset)
