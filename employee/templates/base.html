@@ -36,15 +36,15 @@
             <a class="nav-link" href="/project/index">Projects</a>
           </li>
         
-          {% if request.user.is_authenticated %}
-          {% if request.user.groups.all.0.name == 'operator' %}
+           {% if request.user.is_authenticated %}
+          {% if request.user.groups.all.0.name == 'operator' %} 
 
           <li class="nav-item">
             <a class="nav-link" href="/employee/show">Employee</a>
           </li>
-
+ 
           {% endif %} 
-          {% endif %} 
+          {% endif %}  
 
           <li class="nav-item dropdown">
             <a

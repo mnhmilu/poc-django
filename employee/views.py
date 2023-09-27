@@ -4,12 +4,13 @@ from employee.models import Employee
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test 
 from django.contrib import messages
 import csv
 import logging
 from django.http import HttpResponse
-from django.contrib.auth.decorators import user_passes_test  
+from employee.tests.util import is_operator
+
 # Create your views here.  
 
 logger = logging.getLogger(__name__)
@@ -18,7 +19,7 @@ logger = logging.getLogger(__name__)
 #     return render(request,"dashboard.html");
 
 @login_required
-@user_passes_test(lambda u: u.groups.filter(name='companyGroup').exists())
+@user_passes_test(lambda u: u.groups.filter(name='operator').exists())
 def emp(request):  
     if request.method == "POST":  
         form = EmployeeForm(request.POST)  
@@ -33,7 +34,7 @@ def emp(request):
     return render(request,'employee/index.html',{'form':form})  
 
 @login_required
-@user_passes_test(lambda u: u.groups.filter(name='companyGroup').exists())
+@user_passes_test(is_operator)
 def show(request):  
     employees = Employee.objects.all()  
     return render(request,"employee/show.html",{'employees':employees})  
@@ -122,6 +123,7 @@ def export_pdf(request):
     return response
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='operator').exists())
 def employee_lookup(request):
     ename_query = request.GET.get('ename', '')
 
@@ -137,5 +139,6 @@ def employee_lookup(request):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='operator').exists())
 def reload_view(request):
   return redirect('/employee/show')

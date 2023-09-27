@@ -57,5 +57,5 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='dashboard.html'), name='dashboard')
 ]  
 
-def user_is_operator(user):
-    return user.groups.filter(name='operator').exists() #and user.has_perm('auth.add_project')
+# def user_is_operator(user):
+#     return user.groups.filter(name='operator').exists() #and user.has_perm('auth.add_project')
