@@ -96,9 +96,46 @@ path('project/projects', ProjectListCreateView.as_view(), name='project-list-cre
 
 > http://127.0.0.1:8000/project/projects?format=api
 
+
+## How to use authorization
+
+in view use like 
+
+```
+     {% if request.user.is_authenticated %}
+          {% if request.user.groups.all.0.name == 'operator' %} 
+
+          <li class="nav-item">
+            <a class="nav-link" href="/employee/show">Employee</a>
+          </li>
+ 
+          {% endif %} 
+          {% endif %}  
+
+
+```
+
+and in method 
+
+```
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='operator').exists())
+def employee_lookup(request):
+
+```
+
+run  test cases using  `python3 manage.py test employee.tests.test`
+
+
+
+
 ## Reference  
 
 [Authentication-How to ](https://learndjango.com/tutorials/django-login-and-logout-tutorial)
+
+[Authorization Tutorials](https://vegibit.com/understanding-djangos-authentication-and-authorization-system/)
+
+[About Auth User Object](https://docs.djangoproject.com/en/4.2/ref/contrib/auth/)
 
 [Getting Started](https://www.djangoproject.com/start/)
 
