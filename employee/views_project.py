@@ -90,6 +90,8 @@ def edit(request, id):
     logger.warning("edit called------------->with"+request.method);  
 
     project = get_object_or_404(Project, pk=id)
+
+    logger.warning("debug---->"+str(project.completion_date))
     
     if request.method == 'POST':
         form = ProjectForm(request.POST, instance=project)

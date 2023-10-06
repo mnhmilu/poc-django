@@ -53,6 +53,7 @@
       <th>Project Status</th>
       <th>Due Date</th>
       <th>Revised Due Date</th>
+      <th>Completion Date</th>
       <th>Total Deviation</th>    
       <th>Team Lead</th>
       <th>POC</th>
@@ -68,19 +69,19 @@
       <td>{{ project.get_project_status_display }}</td>    
       <td>{{ project.due_date | date:"M d, Y"}}</td>
       <td>{{ project.revised_due_date}}</td>    
+      <td>{{ project.completion_date}}</td>
       <td>{{ project.total_deviation_days }}</td>
       <td>{{ project.team_lead }}</td>
       <td>{{ project.project_poc }}</td>
       <td>{% if project.block_status %}Yes{% else %}No{% endif %}</td>
-
-     
+    
 
       <td>
-        <a href="/project/edit/{{ project.project_id }}"
-          ><span class="glyphicon glyphicon-pencil">Edit</span></a
-        >
+        <a href="/project/edit/{{ project.project_id }}">
+          <span class="glyphicon glyphicon-pencil">Edit</span>
+          </a>
         <a href="/project/delete/{{ project.project_id }}">Delete</a>
-        <a href="/project/add_event/{{ project.project_id }}">Add Events</a>
+        <a href="/project/add_event/{{ project.project_id }}">Events</a>
       </td>
     </tr>
     {% endfor %}

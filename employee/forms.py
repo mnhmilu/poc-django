@@ -30,6 +30,7 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             'due_date': DateInput(),
             'revised_due_date': DateInput() ,
+            'completion_date': DateInput() ,
             'remarks': forms.Textarea(attrs={'rows': 3, 'cols': 50}),            
         }
     

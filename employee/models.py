@@ -19,12 +19,11 @@ class Employee(models.Model):
 
 class Project(models.Model):  
     PROJECT_STATUS = PROJECT_STATUS_CHOICES
-
     project_id = models.AutoField(primary_key=True)
     project_name = models.CharField(max_length=100)  
-    #project_status = models.CharField(max_length=100,default='initiated')  
-    due_date=models.DateField()
-    revised_due_date=models.DateField()
+    due_date = models.DateField(null=True, blank=True)
+    revised_due_date = models.DateField(null=True, blank=True)
+    completion_date = models.DateField(null=True, blank=True)
     total_deviation_days=models.IntegerField(default=0)
     team_lead=models.CharField(max_length=50,blank=True)
     project_poc=models.CharField(max_length=50,blank=True)
