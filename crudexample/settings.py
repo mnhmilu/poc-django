@@ -1,3 +1,9 @@
+
+import os
+from decouple import config
+from pathlib import Path
+
+
 """
 Django settings for crudexample project.
 
@@ -10,8 +16,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
-import os 
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,7 +39,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 SECRET_KEY = 'django-insecure-re8lqs^-eu+l^l&sx40#)1ja5(cb(f9^%gcv6gvh9x^v+mvkz7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
+
+print("reading value from .env file---------------->"+str(DEBUG))
+print("reading value from os env ---------------->"+str(os.environ.get('sample_variable')))
 
 ALLOWED_HOSTS = []
 
@@ -43,7 +51,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django_extensions',
-   'django.contrib.admin',  
+    'django.contrib.admin',  
     'django.contrib.auth',  
     'django.contrib.contenttypes',  
     'django.contrib.sessions',  
