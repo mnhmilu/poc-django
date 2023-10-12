@@ -144,6 +144,14 @@ print("reading value from .env file---------------->"+str(DEBUG))
 print("reading value from os env ---------------->"+str(os.environ.get('sample_varibale')))
 
 ```
+sudo nano ~/.bashrc add `export sample_variable=test` last line
+source ~/.bashrc
+cat ~/.bashrc
+echo $sample_variable
+
+> In a production Django application, it's generally considered more secure to store sensitive information, such as database connection details and secret keys, in the host environment rather than in a .env file or hardcoding them in your project's code. Storing secrets in the host environment provides an extra layer of security and separation from your application code.
+
+
 
 
 
