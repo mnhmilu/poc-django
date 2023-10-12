@@ -126,6 +126,32 @@ def employee_lookup(request):
 
 run  test cases using  `python3 manage.py test employee.tests.test`
 
+## Loading sensitive configuration 
+
+For loading info from .env file install `pip install python-decouple`
+
+in setting.py
+
+```
+import os
+from decouple import config
+
+//from .env
+DEBUG = config('DEBUG', cast=bool)
+print("reading value from .env file---------------->"+str(DEBUG))
+
+//from os variable
+print("reading value from os env ---------------->"+str(os.environ.get('sample_varibale')))
+
+```
+
+
+
+### To export dependenices
+
+use this
+
+`pip freeze > requirements.txt`
 
 
 
