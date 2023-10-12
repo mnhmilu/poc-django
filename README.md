@@ -136,18 +136,28 @@ in setting.py
 import os
 from decouple import config
 
-//from .env
+
+///For .env
+
 DEBUG = config('DEBUG', cast=bool)
 print("reading value from .env file---------------->"+str(DEBUG))
 
-//from os variable
-print("reading value from os env ---------------->"+str(os.environ.get('sample_varibale')))
+```
+
+For OS
+
+sudo nano ~/.bashrc add `export sample_variable=test` last line
+
+verify:
 
 ```
-sudo nano ~/.bashrc add `export sample_variable=test` last line
 source ~/.bashrc
 cat ~/.bashrc
 echo $sample_variable
+```
+
+`print("reading value from os env ---------------->"+str(os.environ.get('sample_varibale')))`
+
 
 > In a production Django application, it's generally considered more secure to store sensitive information, such as database connection details and secret keys, in the host environment rather than in a .env file or hardcoding them in your project's code. Storing secrets in the host environment provides an extra layer of security and separation from your application code.
 
@@ -155,7 +165,7 @@ echo $sample_variable
 
 
 
-### To export dependenices
+### To export dependencies
 
 use this
 
