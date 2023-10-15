@@ -172,7 +172,24 @@ use this
 
 ### Adding PostgreSQL and Docker Compose 
 
+see Dockerfile and docker-compose.yml for configuration
 
+
+settings.py for database configaration ( it should reside in secret or host env variables)
+
+```
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase',
+        'USER': 'myuser',
+        'PASSWORD': 'mypassword',
+        'HOST': 'db',  # This should match the service name in Docker Compose
+        'PORT': '5432',
+    }
+}
+```
 
 
 ---
