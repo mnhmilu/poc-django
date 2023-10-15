@@ -272,6 +272,7 @@ switch to another database  `\c dbname`
 
 [Handle migration error](https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html)
 
+[Multi Module django projects](https://www.youtube.com/watch?v=s5drQZSvO3w)
 
 [How to guide](https://docs.djangoproject.com/en/4.2/howto/)
 
