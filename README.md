@@ -198,7 +198,7 @@ DATABASES = {
 
 
 ---
-For migration error clean
+For migration errors clean
 
 Go through each of your projects apps migration folder and remove everything inside, except the __init__.py file.
 
@@ -223,9 +223,9 @@ python3 manage.py migrate
 > if any column missing then add column via pgadmin console 
 
 
-For run postgresql command enter to db container 
+For run Postgresql command enter to db container 
 
-dcoker ps
+docker ps
 
 
 docker exec -it 908390c6557e bash
@@ -246,7 +246,14 @@ describe table `\d tablename`
 
 switch to another database  `\c dbname` 
 
+---
+ docker complete clean for image and container
 
+ ```
+ docker rm -vf $(docker ps -aq)
+ docker ps
+ docker system prune -a -f
+```
 
 ## Reference  
 
