@@ -201,6 +201,8 @@ python3 manage.py migrate
 > if any column missing then add column via pgadmin console 
 
 
+For run postgresql command enter to db container 
+
 dcoker ps
 
 
