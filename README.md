@@ -175,8 +175,8 @@ use this
 
 > but keep only the required components
 
-### Adding PostgreSQL and Docker Compose 
-
+## Adding PostgreSQL and Docker Compose 
+---
 see Dockerfile and docker-compose.yml for configuration
 
 
@@ -196,17 +196,19 @@ DATABASES = {
 }
 ```
 
+### For migration error cleanup
 
----
-For migration errors clean
-
-Go through each of your projects apps migration folder and remove everything inside, except the __init__.py file.
+Go through each of your project's apps migration folder and remove everything inside, except the __init__.py file.
 
 ```
 find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 find . -path "*/migrations/*.pyc"  -delete
 
-After change any model
+```
+
+### After changing any model
+
+```
 
 docker-compose up -d --build
 
@@ -223,19 +225,18 @@ python3 manage.py migrate
 > if any column missing then add column via pgadmin console 
 
 
-For run Postgresql command enter to db container 
+### To run Postgresql command enter to db container 
 
+```
 docker ps
-
 
 docker exec -it 908390c6557e bash
 
-
 psql -h localhost -p 5432 -d postgres -U postgres
 
+```
 
---- 
-Common commands
+### Common postgresql commands
 
 
 list database `\l`
@@ -246,8 +247,8 @@ describe table `\d tablename`
 
 switch to another database  `\c dbname` 
 
----
- docker complete clean for image and container
+
+### docker complete clean for image and container
 
  ```
  docker rm -vf $(docker ps -aq)
