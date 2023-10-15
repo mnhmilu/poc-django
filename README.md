@@ -162,14 +162,65 @@ echo $sample_variable
 > In a production Django application, it's generally considered more secure to store sensitive information, such as database connection details and secret keys, in the host environment rather than in a .env file or hardcoding them in your project's code. Storing secrets in the host environment provides an extra layer of security and separation from your application code.
 
 
-
-
-
 ### To export dependencies
 
 use this
 
 `pip freeze > requirements.txt`
+
+> but keep only the required components
+
+### Adding PostgreSQL and Docker Compose 
+
+
+
+
+---
+For migration error clean
+
+Go through each of your projects apps migration folder and remove everything inside, except the __init__.py file.
+
+```
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
+
+After change any model
+
+docker-compose up -d --build
+
+docker ps
+
+docker exec -it webcontainerid bash
+
+python3 manage.py makemigrations
+
+python3 manage.py migrate
+
+```
+
+> if any column missing then add column via pgadmin console 
+
+
+dcoker ps
+
+
+docker exec -it 908390c6557e bash
+
+
+psql -h localhost -p 5432 -d postgres -U postgres
+
+
+--- 
+Common commands
+
+
+list database `\l`
+
+list tables `\dt`
+
+describe table `\d tablename`
+
+switch to another database  `\c dbname` 
 
 
 
@@ -182,6 +233,13 @@ use this
 [About Auth User Object](https://docs.djangoproject.com/en/4.2/ref/contrib/auth/)
 
 [Getting Started](https://www.djangoproject.com/start/)
+
+[pgAdmin](https://www.tutorialsteacher.com/postgresql/connect-to-postgresql-database)
+
+[postgresql commands](https://hasura.io/blog/top-psql-commands-and-flags-you-need-to-know-postgresql/)
+
+[Handle migration error](https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html)
+
 
 [How to guide](https://docs.djangoproject.com/en/4.2/howto/)
 
