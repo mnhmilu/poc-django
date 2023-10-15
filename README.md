@@ -176,7 +176,7 @@ use this
 > but keep only the required components
 
 ## Adding PostgreSQL and Docker Compose 
----
+
 see Dockerfile and docker-compose.yml for configuration
 
 
