@@ -256,6 +256,19 @@ switch to another database  `\c dbname`
  docker system prune -a -f
 ```
 
+### Running with docker compose
+
+```
+sudo docker-compose up -d --build
+
+sudo docker-compose exec web python manage.py migrate --noinput
+
+sudo docker-compose exec web python manage.py createsuperuser
+
+
+```
+
+
 ## Reference  
 
 [Authentication-How to ](https://learndjango.com/tutorials/django-login-and-logout-tutorial)
