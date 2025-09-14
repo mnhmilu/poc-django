@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect  
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render, redirect
 from employee.forms import EmployeeForm  
-from employee.models import Employee  
+from employee.models import Employee, AccessAudit
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 from django.core.paginator import Paginator
@@ -142,3 +143,25 @@ def employee_lookup(request):
 @user_passes_test(lambda u: u.groups.filter(name='operator').exists())
 def reload_view(request):
   return redirect('/employee/show')
+
+
+class CustomLoginView(LoginView):
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        try:
+            employee = Employee.objects.get(eemail=self.request.user.email)
+            AccessAudit.objects.create(employee=employee)
+        except Employee.DoesNotExist:
+            pass
+        return response
+
+
+def auditlog_list(request):
+    audits = AccessAudit.objects.all().order_by('-login_time')
+
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    if start_date and end_date:
+        audits = audits.filter(login_time__date__range=[start_date, end_date])
+
+    return render(request, "employee/auditlog_list.html", {"audits": audits})

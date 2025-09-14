@@ -55,4 +55,22 @@ class Event(models.Model):
 
     def __str__(self):
         return self.event_name
+
+
+class AccessAudit(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    login_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        managed = True
+        db_table = "agam_access_audit"
+        ordering = ["-login_time"]
+
+    def __str__(self):
+        return f"{self.employee.ename} logged in at {self.login_time}"
+
+
+
+
+
         

@@ -23,6 +23,7 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView # new
 
 from employee.view_api import ProjectListCreateView
+from employee.views import CustomLoginView
 
 urlpatterns = [  
     
@@ -52,9 +53,13 @@ urlpatterns = [
     path('employee/delete/<int:id>', views.destroy),  
     path('employee/reload/', views.reload_view, name='reload'),
     path('employee/show',views.employee_lookup, name='employee_lookup'),
+
+    path("accounts/login/", CustomLoginView.as_view(), name="login"),
     
     path("accounts/", include("django.contrib.auth.urls")),  # new
-    path('', TemplateView.as_view(template_name='dashboard.html'), name='dashboard')
+    path('', TemplateView.as_view(template_name='dashboard.html'), name='dashboard'),
+
+    path("auditlog/", views.auditlog_list, name="auditlog_list")
 ]  
 
 # def user_is_operator(user):
