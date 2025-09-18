@@ -44,8 +44,9 @@ urlpatterns = [
 
     path('project/projects', ProjectListCreateView.as_view(), name='project-list-create'),
 
+    path('project/approve/<int:id>/', views_project.approve_project, name='approve_project'),
 
-    path('employee/emp', views.emp),  
+    path('employee/emp', views.emp),
     path('employee/export',views.export),    
     path('employee/exportpdf',views.export_pdf),    
     path('employee/edit/<int:id>', views.edit),  

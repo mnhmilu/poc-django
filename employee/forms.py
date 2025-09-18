@@ -26,7 +26,7 @@ class ProjectForm(forms.ModelForm):
         model = Project  
         fields = "__all__"  
         #widget=forms.Select(choices=PROJECT_STATUS)
-        exclude=['inserted_by','updated_by']
+        exclude=['inserted_by','updated_by', 'approval_status']
         widgets = {
             'due_date': DateInput(),
             'revised_due_date': DateInput() ,

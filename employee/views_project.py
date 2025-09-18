@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from reportlab.pdfgen import canvas
 from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 import csv
 import logging
 from django.http import HttpResponse
@@ -47,29 +47,30 @@ def home(request):
     return render(request,"dashboard.html",context);
 
 
+@login_required
+def add(request):
+    logger.info("proj------------> called")
+    if request.method == "POST":
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            try:
+                project = form.save(commit=False)
+                # New projects are automatically PENDING due to model's default
+                project.save()
+                return redirect('/project/index')
+            except Exception as e:
+                messages.error(request, f"An error occurred: {e}")
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = ProjectForm()
+    return render(request, 'project/add.html', {'form': form})
+
 
 @login_required
-def add(request):  
-
-    logger.info("proj------------> called");
-    if request.method == "POST":  
-        form = ProjectForm(request.POST)  
-        if form.is_valid():  
-            try:  
-                form.save()  
-                return redirect('/project/index')  
-            except:  
-                pass  
-        else:            
-            messages.error(request,form.errors)  
-    else:  
-        form = ProjectForm()  
-    return render(request,'project/add.html',{'form':form})  
-
-@login_required
-def show(request):  
-    projects = Project.objects.all()  
-    return render(request,"project/index.html",{'projects':projects})  
+def show(request):
+    projects = Project.objects.all()
+    return render(request,"project/index.html",{'projects':projects})
 
 # @login_required
 # def edit(request, id):  
@@ -210,31 +211,39 @@ def export_pdf(request):
     return response
 
 
-@login_required
 def project_lookup(request):
-
+    user = request.user
     projectname_query = request.GET.get('project_name', '')
     projectstatus_query = request.GET.get('project_status', '')
+    approvalstatus_query = request.GET.get('approval_status', '')  # New search parameter
 
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('-insert_date')
 
-    if projectname_query:    
-        projects = Project.objects.filter(project_name__icontains=projectname_query)
-    
-    if projectstatus_query:    
-        projects = Project.objects.filter(project_status__icontains=projectstatus_query)
-    
+    # Non-admin users can only see APPROVED projects
+    if not user.is_staff:
+        projects = projects.filter(approval_status='APPROVED')
 
-    logger.warning("-------------> project lookup called")
-   
-    # Assuming you want to display 10 projects per page
-    
-    paginator = Paginator(projects, 5)  # 10 projects per page
+    # Apply search filters
+    if projectname_query:
+        projects = projects.filter(project_name__icontains=projectname_query)
 
+    if projectstatus_query:
+        projects = projects.filter(project_status__icontains=projectstatus_query)
+
+    # Admins can filter by approval status
+    if user.is_staff and approvalstatus_query:
+        projects = projects.filter(approval_status=approvalstatus_query)
+
+    paginator = Paginator(projects, 10)
     page_number = request.GET.get('page')
-    projects = paginator.get_page(page_number)
-    form = ProjectForm() 
-    return render(request, 'project/index.html', {'projects': projects, 'form':form})
+    projects_page = paginator.get_page(page_number)
+    form = ProjectForm()
+
+    return render(request, 'project/index.html', {
+        'projects': projects_page,
+        'form': form,
+        'request': request,  # Pass the request object to the template
+    })
 
 
 @login_required
@@ -274,3 +283,12 @@ def destroy_project_event(request, id):
     project_id=event.project_id;
     event.delete()  
     return redirect('add_event_to_project', project_id);
+
+@login_required
+@user_passes_test(lambda u: u.is_staff or u.is_superuser) # Only admins can approve
+def approve_project(request, id):
+    project = get_object_or_404(Project, pk=id)
+    project.approval_status = 'APPROVED'
+    project.save()
+    messages.success(request, f"Project '{project.project_name}' has been approved.")
+    return redirect('project_lookup')

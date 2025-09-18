@@ -19,6 +19,13 @@ class Employee(models.Model):
 
 class Project(models.Model):  
     PROJECT_STATUS = PROJECT_STATUS_CHOICES
+
+    APPROVAL_STATUS_CHOICES = [
+        ('PENDING', 'Pending'),
+        ('APPROVED', 'Approved'),
+        ('REJECTED', 'Rejected'),
+    ]
+
     project_id = models.AutoField(primary_key=True)
     project_name = models.CharField(max_length=100)  
     due_date = models.DateField(null=True, blank=True)
@@ -36,6 +43,13 @@ class Project(models.Model):
     update_date=models.DateTimeField(auto_now_add=True)    
     remarks=models.CharField(max_length=250,blank=True)
     project_status = models.CharField(max_length=20, choices=PROJECT_STATUS)
+
+    approval_status = models.CharField(
+        max_length=10,
+        choices=APPROVAL_STATUS_CHOICES,
+        default='PENDING',
+        verbose_name='Approval Status'
+    )
     
     class Meta:  
         managed = True     

@@ -4,8 +4,8 @@
 </br>
 
 <div >
-  <div class="row g-3"> 
-   
+  <div class="row g-3">
+
         <form class="form-inline" method="get">
           <div class="col-sm">
             <input type="text" class="form-control" name="project_name" placeholder="Enter Project Name" value="{{ request.GET.project_name }}">
@@ -14,22 +14,32 @@
             OR
           </div>
           <div class="col-sm">
-          
+
             <select name="project_status" class="form-control" id="id_project_status">
               <option value="" {% if not request.GET.project_status %}selected{% endif %}>Select Status</option>
               {% for choice_key, choice_label in form.project_status.field.choices %}
-                  <option value="{{ choice_key }}" {% if choice_key == form.project_status.value %}selected{% endif %}>
+                  <option value="{{ choice_key }}" {% if choice_key == request.GET.project_status %}selected{% endif %}>
                       {{ choice_label }}
                   </option>
               {% endfor %}
            </select>
           </div>
-        
+
+          {% if user.is_staff %}
+          <div class="col-sm">
+            <select name="approval_status" class="form-control" id="id_approval_status">
+              <option value="">All Approval Status</option>
+              <option value="PENDING" {% if request.GET.approval_status == "PENDING" %}selected{% endif %}>Pending</option>
+              <option value="APPROVED" {% if request.GET.approval_status == "APPROVED" %}selected{% endif %}>Approved</option>
+            </select>
+          </div>
+          {% endif %}
+
           <div class="col-sm">
           <button type="submit" class="btn btn-primary">Search</button>
         </div>
-        </form> 
-     
+        </form>
+
       <div class="col-sm">
         <form class="form-inline" method="get" action="{% url 'project_reload' %}">
           <button type="submit" class="btn btn-primary">Reload</button>
@@ -37,11 +47,8 @@
       </div>
       <div class="col-sm">
       </div>
-    
-  </div>
-  
-  
 
+  </div>
 
 </br>
 
@@ -51,10 +58,11 @@
       <th>ID</th>
       <th>Project Name</th>
       <th>Project Status</th>
+      <th>Approval Status</th>
       <th>Due Date</th>
       <th>Revised Due Date</th>
       <th>Completion Date</th>
-      <th>Total Deviation</th>    
+      <th>Total Deviation</th>
       <th>Team Lead</th>
       <th>POC</th>
       <th>Block Status</th>
@@ -66,17 +74,21 @@
     <tr>
       <td>{{ project.project_id }}</td>
       <td>{{ project.project_name }}</td>
-      <td>{{ project.get_project_status_display }}</td>    
+      <td>{{ project.get_project_status_display }}</td>
+      <td>{{ project.get_approval_status_display }}</td>
       <td>{{ project.due_date | date:"M d, Y"}}</td>
-      <td>{{ project.revised_due_date}}</td>    
+      <td>{{ project.revised_due_date}}</td>
       <td>{{ project.completion_date}}</td>
       <td>{{ project.total_deviation_days }}</td>
       <td>{{ project.team_lead }}</td>
       <td>{{ project.project_poc }}</td>
       <td>{% if project.block_status %}Yes{% else %}No{% endif %}</td>
-    
+
 
       <td>
+        {% if user.is_staff and project.approval_status == 'PENDING' %}
+        <a href="/project/approve/{{ project.project_id }}" class="btn btn-success btn-sm">Approve</a>
+        {% endif %}
         <a href="/project/edit/{{ project.project_id }}">
           <span class="glyphicon glyphicon-pencil">Edit</span>
           </a>
